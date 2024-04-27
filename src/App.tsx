@@ -1,5 +1,7 @@
 import "./App.css";
 
+import Malyvsen from "./Malyvsen";
+
 function App() {
   return (
     <div
@@ -23,7 +25,7 @@ function App() {
           padding: "0",
         }}
       >
-        malyvsen
+        <Malyvsen />
       </h1>
 
       <div
