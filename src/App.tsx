@@ -7,19 +7,18 @@ function App() {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           flexDirection: "column",
-          height: "100vh",
-          textAlign: "center",
+          position: "absolute",
+          top: "25vh",
+          left: "25vw",
+          height: "50vh",
+          width: "50vw",
+          justifyContent: "center",
+          alignItems: "flex-start",
         }}
       >
-        <a href="/actor" style={{ marginBottom: 20 }}>
-          actor
-        </a>
-        <a href="/writer" style={{ marginBottom: 20 }}>
-          writer
-        </a>
+        <a href="/actor">actor</a>
+        <a href="/writer">writer</a>
         <a href="/programmer">programmer</a>
       </div>
     </>
