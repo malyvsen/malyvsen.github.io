@@ -2,11 +2,11 @@ import { TypeAnimation } from "react-type-animation";
 import { useState } from "react";
 
 function Malyvsen() {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   return (
-    <span onMouseEnter={() => setIsHovered(true)}>
-      {isHovered ? (
+    <span onMouseEnter={() => setIsAnimating(true)}>
+      {isAnimating ? (
         <TypeAnimation
           sequence={[
             "malyvsen",
@@ -15,7 +15,7 @@ function Malyvsen() {
             "bocheński",
             1000,
             "malyvsen",
-            () => setIsHovered(false),
+            () => setIsAnimating(false),
           ]}
           preRenderFirstString={true}
           wrapper="span"
