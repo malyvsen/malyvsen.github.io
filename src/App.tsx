@@ -12,14 +12,14 @@ function App() {
         height: "50vh",
         width: "50vw",
         justifyContent: "center",
-        alignItems: "flex-end",
+        alignItems: "center",
       }}
     >
       <h1
         style={{
           writingMode: "vertical-rl",
           rotate: "180deg",
-          margin: "0",
+          margin: "1rem",
           padding: "0",
         }}
       >
