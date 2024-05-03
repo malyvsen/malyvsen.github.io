@@ -12,3 +12,15 @@ pre {
   border-radius: 5px;
   padding: 5px;
 }
+
+input {
+  border: 0;
+  border-bottom: 1px solid black;
+  background: none;
+  height: 24px;
+  font-size: 20px;
+}
+
+input:focus {
+  outline: none;
+}

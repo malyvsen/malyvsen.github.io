@@ -40,20 +40,24 @@ function Manfred() {
     decryptData();
   }, [encryptionKey]);
 
-  return password === null ? (
-    <PasswordInput onSubmit={setPassword} />
-  ) : decryptionStatus === null ? (
-    <p>Decryption in progress...</p>
+  return decryptionStatus === null ? (
+    <div style={{ textAlign: "center" }}>
+      <h1>Enter password</h1>
+      <PasswordInput onSubmit={setPassword} />
+    </div>
   ) : decryptionStatus === "success" ? (
     <p>Decryption successful</p>
   ) : (
-    <p>Decryption failed</p>
+    <div style={{ textAlign: "center" }}>
+      <h1>Wrong password, try again</h1>
+      <PasswordInput onSubmit={setPassword} />
+    </div>
   );
 }
 
 const encryptedStatus = new Uint8Array([
-  192, 90, 77, 136, 66, 10, 236, 186, 234, 149, 8, 16, 151, 237, 181, 62, 207,
-  56, 221, 41, 204, 71, 248,
+  116, 48, 18, 185, 178, 231, 181, 85, 163, 7, 227, 83, 32, 243, 91, 143, 234,
+  221, 72, 168, 169, 44, 128,
 ]);
 
 export default Manfred;
