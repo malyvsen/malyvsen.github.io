@@ -19,6 +19,9 @@ function App() {
     >
       <h1
         style={{
+          fontSize: "48px",
+          fontWeight: 400,
+          color: "black",
           writingMode: "vertical-rl",
           rotate: "180deg",
           margin: "1rem",
@@ -36,9 +39,15 @@ function App() {
           alignItems: "flex-start",
         }}
       >
-        <a href="/actor">actor</a>
-        <a href="/writer">writer</a>
-        <a href="/programmer">programmer</a>
+        <a className="link" href="/actor">
+          actor
+        </a>
+        <a className="link" href="/writer">
+          writer
+        </a>
+        <a className="link" href="/programmer">
+          programmer
+        </a>
       </div>
     </div>
   );
