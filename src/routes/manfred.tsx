@@ -1,70 +1,59 @@
 import { useState, useEffect } from "react";
 
-import PasswordGate from "../components/PasswordGate";
-import { encrypt, decrypt } from "../encryption";
+import PasswordInput from "../components/PasswordInput";
+
+import { decrypt, passwordToKey } from "../encryption";
 
 function Manfred() {
   const [password, setPassword] = useState<string | null>(null);
-  const [payload, setPayload] = useState("");
-  const [encryptedData, setEncryptedData] = useState<Uint8Array | null>(null);
-  const [decryptedData, setDecryptedData] = useState<string | null>(null);
+  const [encryptionKey, setEncryptionKey] = useState<CryptoKey | null>(null);
+  const [decryptionStatus, setDecryptionStatus] = useState<string | null>(null);
 
   useEffect(() => {
-    const encryptData = async () => {
+    const generateKey = async () => {
       if (password === null) {
         return;
       }
-      const encryptedData = await encrypt({ password, data: payload });
-      setEncryptedData(encryptedData);
+      const key = await passwordToKey(password);
+      setEncryptionKey(key);
     };
 
-    encryptData();
-  }, [password, payload]);
+    generateKey();
+  }, [password]);
 
   useEffect(() => {
     const decryptData = async () => {
-      if (password === null) {
+      if (encryptionKey === null) {
         return;
       }
-      if (encryptedData === null) {
-        return;
+      try {
+        const decryptedData = await decrypt({
+          key: encryptionKey,
+          encryptedData: encryptedStatus,
+        });
+        setDecryptionStatus(decryptedData);
+      } catch {
+        setDecryptionStatus("failure");
       }
-      const decryptedData = await decrypt({
-        password,
-        encryptedData,
-      });
-      setDecryptedData(decryptedData);
     };
 
     decryptData();
-  }, [password, encryptedData]);
+  }, [encryptionKey]);
 
-  return (
-    <div>
-      {password === null ? (
-        <PasswordGate onSubmit={setPassword} />
-      ) : (
-        <>
-          <input
-            type="text"
-            value={payload}
-            onChange={(e) => setPayload(e.target.value)}
-          />
-          <p>Password: {password}</p>
-          {encryptedData === null ? (
-            <p>Encrypted data is null</p>
-          ) : (
-            <p>Encrypted payload: {encryptedData.join(", ")}</p>
-          )}
-          {decryptedData === null ? (
-            <p>Decrypted data is null</p>
-          ) : (
-            <p>Decrypted payload: {decryptedData}</p>
-          )}
-        </>
-      )}
-    </div>
+  return password === null ? (
+    <PasswordInput onSubmit={setPassword} />
+  ) : decryptionStatus === null ? (
+    <p>Decryption in progress...</p>
+  ) : decryptionStatus === "success" ? (
+    <p>Decryption successful</p>
+  ) : (
+    <p>Decryption failed</p>
   );
 }
+
+const encryptedStatus = new Uint8Array([
+  192, 90, 77, 136, 66, 10, 236, 186, 234, 149, 8, 16, 151, 237, 181, 62, 207,
+  56, 221, 41, 204, 71, 248,
+]);
 
 export default Manfred;

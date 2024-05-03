@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./routes/root.tsx";
 import Manfred from "./routes/manfred.tsx";
+import Encryption from "./routes/encryption.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/manfred",
     element: <Manfred />,
+  },
+  {
+    path: "/encryption",
+    element: <Encryption />,
   },
 ]);
 

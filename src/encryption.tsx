@@ -1,12 +1,4 @@
-export async function encrypt({
-  password,
-  data,
-}: {
-  password: string;
-  data: string;
-}) {
-  const key = await passwordToKey(password);
-
+export async function encrypt({ key, data }: { key: CryptoKey; data: string }) {
   const encryptedData = await crypto.subtle.encrypt(
     { name: "AES-GCM", iv: initializationVector },
     key,
@@ -17,14 +9,12 @@ export async function encrypt({
 }
 
 export async function decrypt({
-  password,
+  key,
   encryptedData,
 }: {
-  password: string;
+  key: CryptoKey;
   encryptedData: Uint8Array;
 }) {
-  const key = await passwordToKey(password);
-
   const decryptedData = await crypto.subtle.decrypt(
     { name: "AES-GCM", iv: initializationVector },
     key,
@@ -34,7 +24,7 @@ export async function decrypt({
   return textDecoder.decode(decryptedData);
 }
 
-async function passwordToKey(password: string): Promise<CryptoKey> {
+export async function passwordToKey(password: string): Promise<CryptoKey> {
   const passwordBuffer = textEncoder.encode(password);
 
   const keyMaterial = await crypto.subtle.importKey(
