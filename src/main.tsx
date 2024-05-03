@@ -1,12 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Root from "./routes/root.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Root from "./routes/root.tsx";
+import Manfred from "./routes/manfred.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+  },
+  {
+    path: "/manfred",
+    element: <Manfred />,
   },
 ]);
 
