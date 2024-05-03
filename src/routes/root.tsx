@@ -1,8 +1,9 @@
-import "./App.css";
+import "./root.css";
 
-import Malyvsen from "./Malyvsen";
+import { Link } from "react-router-dom";
+import Malyvsen from "../components/Malyvsen";
 
-function App() {
+function Root() {
   return (
     <div
       style={{
@@ -39,18 +40,18 @@ function App() {
           alignItems: "flex-start",
         }}
       >
-        <a className="link" href="/actor">
+        <Link className="link" to="/actor">
           actor
-        </a>
-        <a className="link" href="/writer">
+        </Link>
+        <Link className="link" to="/writer">
           writer
-        </a>
-        <a className="link" href="/programmer">
+        </Link>
+        <Link className="link" to="/programmer">
           programmer
-        </a>
+        </Link>
       </div>
     </div>
   );
 }
 
-export default App;
+export default Root;
