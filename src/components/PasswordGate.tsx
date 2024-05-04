@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { decrypt, passwordToKey } from "../utils/encryption";
+import { TypeAnimation } from "react-type-animation";
 
 function PasswordGate({
   decryptData,
@@ -14,7 +15,10 @@ function PasswordGate({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setDecryptionStatus("decrypting");
     const key = await passwordToKey(password);
+
     try {
       const decryptedStatus = await decrypt({
         key,
@@ -32,7 +36,7 @@ function PasswordGate({
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Enter password</h1>
+      <h1>Podaj hasło</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="password"
@@ -45,9 +49,18 @@ function PasswordGate({
       {decryptionStatus === "not started" ? (
         <></>
       ) : decryptionStatus === "decrypting" ? (
-        <p>Decrypting...</p>
+        <p>
+          <TypeAnimation
+            sequence={["Rozszyfrowywanie", "Rozszyfrowywanie..."]}
+            wrapper="span"
+            preRenderFirstString={true}
+            cursor={true}
+            repeat={0}
+            speed={{ type: "keyStrokeDelayInMs", value: 500 }}
+          />
+        </p>
       ) : (
-        <p>Wrong password, try again</p>
+        <p>Złe hasło, spróbuj ponownie</p>
       )}
     </div>
   );
