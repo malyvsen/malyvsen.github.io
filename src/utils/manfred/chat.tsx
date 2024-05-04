@@ -4,7 +4,8 @@ import DeeplClient from "./DeeplClient";
 
 export interface Message {
   role: "system" | "user" | "assistant";
-  displayText: string;
+  foreignLanguage: string;
+  foreignText: string;
   englishText: string;
 }
 
@@ -33,15 +34,17 @@ export async function getManfredResponse({
   });
   const englishResponse = chatCompletion.choices[0].message.content;
 
+  const foreignLanguage = messages[messages.length - 1].foreignLanguage;
   const translationResult = await deeplClient.translate(
     englishResponse,
-    "en",
-    "pl"
+    "EN",
+    foreignLanguage
   );
 
   return {
     role: "assistant",
-    displayText: translationResult.translatedText,
+    foreignLanguage: foreignLanguage,
+    foreignText: translationResult.translatedText,
     englishText: englishResponse,
   };
 }

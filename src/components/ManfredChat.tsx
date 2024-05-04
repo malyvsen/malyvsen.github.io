@@ -12,17 +12,22 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const translationResult = await clients.deepl.translate(
+    let translationResult = await clients.deepl.translate(
       wipMessage,
       null,
-      "en"
+      "EN"
     );
+    if (!["PL", "EN"].includes(translationResult.detectedSourceLanguage)) {
+      // it's probably Polish :)
+      translationResult = await clients.deepl.translate(wipMessage, "PL", "EN");
+    }
 
     setMessages([
       ...messages,
       {
         role: "user",
-        displayText: wipMessage,
+        foreignLanguage: translationResult.detectedSourceLanguage,
+        foreignText: wipMessage,
         englishText: translationResult.translatedText,
       },
     ]);
@@ -54,9 +59,9 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
       <div className="messages-container">
         {messages.map((message, index) => (
           <div className="message" key={index}>
-            {message.displayText}
+            {message.foreignText}
             <br />
-            (appears as "{message.englishText}" to the LLM)
+            <span style={{ color: "gray" }}>{message.englishText}</span>
           </div>
         ))}
       </div>
