@@ -64,28 +64,25 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   }, [clients, messages]);
 
   return (
-    <>
-      <div className="container">
+    <div className="manfred-container-outer">
+      <div className="manfred-container-inner">
         <h1>Manfred</h1>
         <div className="messages-container">
           {messages.map((message, index) => (
             <MessageComponent message={message} key={index} />
           ))}
-          <form
-            className="message-input-container"
-            onSubmit={handleSendMessage}
-          >
-            <input
-              className="message-input"
-              type="text"
-              placeholder="Wiadomość do Manfreda"
-              value={wipMessage}
-              onChange={(e) => setWipMessage(e.target.value)}
-            />
-            <button type="submit" style={{ display: "none" }} />
-          </form>
         </div>
+        <form className="message-input-container" onSubmit={handleSendMessage}>
+          <input
+            className="message-input"
+            type="text"
+            placeholder="Wiadomość do Manfreda"
+            value={wipMessage}
+            onChange={(e) => setWipMessage(e.target.value)}
+          />
+          <button type="submit" style={{ display: "none" }} />
+        </form>
       </div>
-    </>
+    </div>
   );
 }
