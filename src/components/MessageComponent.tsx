@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 import { Message } from "../utils/manfred/chat";
 
 import "./MessageComponent.css";
 
 export default function MessageComponent({ message }: { message: Message }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const textAlign = message.role === "user" ? "right" : "left";
   const alignSelf = message.role === "user" ? "flex-end" : "flex-start";
 
@@ -10,10 +14,15 @@ export default function MessageComponent({ message }: { message: Message }) {
     <div
       className="message"
       style={{ textAlign: textAlign, alignSelf: alignSelf }}
+      onClick={() => setIsExpanded(!isExpanded)}
     >
       {message.foreignText}
-      <br />
-      <span style={{ color: "gray" }}>{message.englishText}</span>
+      {isExpanded ? (
+        <>
+          <br />
+          <span style={{ color: "gray" }}>{message.englishText}</span>
+        </>
+      ) : null}
     </div>
   );
 }
