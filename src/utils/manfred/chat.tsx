@@ -35,11 +35,16 @@ export async function getManfredResponse({
   const englishResponse = chatCompletion.choices[0].message.content;
 
   const foreignLanguage = messages[messages.length - 1].foreignLanguage;
-  const translationResult = await deeplClient.translate(
-    englishResponse,
-    "EN",
-    foreignLanguage
-  );
+  const translationContext = messages
+    .slice(-3, messages.length)
+    .map((message) => message.englishText)
+    .join("\n");
+  const translationResult = await deeplClient.translate({
+    text: englishResponse,
+    context: translationContext,
+    sourceLanguage: "EN",
+    targetLanguage: foreignLanguage,
+  });
 
   return {
     role: "assistant",

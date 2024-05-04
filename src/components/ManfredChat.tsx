@@ -14,14 +14,22 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let translationResult = await clients.deepl.translate(
-      wipMessage,
-      null,
-      "EN"
-    );
+    const translationContext = messages
+      .slice(-3, messages.length)
+      .map((message) => message.foreignText)
+      .join("\n");
+    const translationParams = {
+      text: wipMessage,
+      context: translationContext,
+      targetLanguage: "EN",
+    };
+    let translationResult = await clients.deepl.translate(translationParams);
     if (!["PL", "EN"].includes(translationResult.detectedSourceLanguage)) {
       // it's probably Polish :)
-      translationResult = await clients.deepl.translate(wipMessage, "PL", "EN");
+      translationResult = await clients.deepl.translate({
+        ...translationParams,
+        sourceLanguage: "PL",
+      });
     }
 
     setMessages([
@@ -56,23 +64,28 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   }, [clients, messages]);
 
   return (
-    <div className="container">
-      <h1>Manfred</h1>
-      <div className="messages-container">
-        {messages.map((message, index) => (
-          <MessageComponent message={message} key={index} />
-        ))}
-        <form className="message-input-container" onSubmit={handleSendMessage}>
-          <input
-            className="message-input"
-            type="text"
-            placeholder="Wiadomość do Manfreda"
-            value={wipMessage}
-            onChange={(e) => setWipMessage(e.target.value)}
-          />
-          <button type="submit" style={{ display: "none" }} />
-        </form>
+    <>
+      <div className="container">
+        <h1>Manfred</h1>
+        <div className="messages-container">
+          {messages.map((message, index) => (
+            <MessageComponent message={message} key={index} />
+          ))}
+          <form
+            className="message-input-container"
+            onSubmit={handleSendMessage}
+          >
+            <input
+              className="message-input"
+              type="text"
+              placeholder="Wiadomość do Manfreda"
+              value={wipMessage}
+              onChange={(e) => setWipMessage(e.target.value)}
+            />
+            <button type="submit" style={{ display: "none" }} />
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -6,16 +6,23 @@ export interface TranslationResult {
 export default class DeeplClient {
   constructor(private key: string) {}
 
-  async translate(
-    text: string,
-    sourceLanguage: string | null,
-    targetLanguage: string
-  ): Promise<TranslationResult> {
+  async translate({
+    text,
+    context,
+    sourceLanguage,
+    targetLanguage,
+  }: {
+    text: string;
+    context?: string;
+    sourceLanguage?: string;
+    targetLanguage: string;
+  }): Promise<TranslationResult> {
     const params = new URLSearchParams({
       auth_key: this.key,
-      ...(sourceLanguage === null ? {} : { source_lang: sourceLanguage }),
-      target_lang: targetLanguage,
       text: text,
+      ...(context !== undefined ? { context } : {}),
+      ...(sourceLanguage !== undefined ? { source_lang: sourceLanguage } : {}),
+      target_lang: targetLanguage,
     });
 
     const response = await fetch("https://api-free.deepl.com/v2/translate", {
