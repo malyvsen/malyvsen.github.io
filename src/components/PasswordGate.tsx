@@ -3,32 +3,31 @@ import { useState } from "react";
 import { decrypt, passwordToKey } from "../utils/encryption";
 
 function PasswordGate({
-  setCorrectEncryptionKey,
+  decryptData,
 }: {
-  setCorrectEncryptionKey: (key: CryptoKey) => void;
+  decryptData: (key: CryptoKey) => Promise<void>;
 }) {
   const [password, setPassword] = useState("");
   const [decryptionStatus, setDecryptionStatus] = useState<
-    "success" | "failure" | "decrypting" | "not started"
+    "failure" | "decrypting" | "not started"
   >("not started");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const key = await passwordToKey(password);
     try {
-      const decryptedData = await decrypt({
+      const decryptedStatus = await decrypt({
         key,
         encryptedData: encryptedStatus,
       });
-      if (decryptedData !== "success") {
+      if (decryptedStatus !== "success") {
         throw new Error("decryption failed");
       }
     } catch {
       setDecryptionStatus("failure");
       return;
     }
-    setDecryptionStatus("success");
-    setCorrectEncryptionKey(key);
+    await decryptData(key);
   };
 
   return (
@@ -47,8 +46,6 @@ function PasswordGate({
         <></>
       ) : decryptionStatus === "decrypting" ? (
         <p>Decrypting...</p>
-      ) : decryptionStatus === "success" ? (
-        <p>Decryption successful</p>
       ) : (
         <p>Wrong password, try again</p>
       )}
