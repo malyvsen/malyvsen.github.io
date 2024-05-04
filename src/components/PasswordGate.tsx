@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { decrypt, passwordToKey } from "../encryption";
+import { decrypt, passwordToKey } from "../utils/encryption";
 
 function PasswordGate({
   setCorrectEncryptionKey,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { encrypt, decrypt, passwordToKey } from "../encryption";
+import { encrypt, decrypt, passwordToKey } from "../utils/encryption";
 
 function Encryption() {
   const [password, setPassword] = useState("");
