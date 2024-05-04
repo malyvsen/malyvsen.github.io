@@ -41,6 +41,7 @@ function PasswordGate({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <button type="submit" style={{ display: "none" }} />
       </form>
       {decryptionStatus === "not started" ? (
         <></>
