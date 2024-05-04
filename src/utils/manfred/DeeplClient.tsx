@@ -11,17 +11,19 @@ export default class DeeplClient {
     sourceLanguage: string | null,
     targetLanguage: string
   ): Promise<TranslationResult> {
-    const response = await fetch("https://api.deepl.com/v2/translate", {
+    const params = new URLSearchParams({
+      auth_key: this.key,
+      ...(sourceLanguage === null ? {} : { source_lang: sourceLanguage }),
+      target_lang: targetLanguage,
+      text: text,
+    });
+
+    const response = await fetch("https://api-free.deepl.com/v2/translate", {
       method: "POST",
+      body: params,
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `DeepL-Auth-Key ${this.key}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify({
-        text: [text],
-        ...(sourceLanguage === null ? {} : { source_lang: sourceLanguage }),
-        target_lang: targetLanguage,
-      }),
     });
     const data = await response.json();
 
