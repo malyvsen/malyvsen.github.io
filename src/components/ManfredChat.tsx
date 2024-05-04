@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { Clients, Message, getManfredResponse } from "../utils/manfred";
+import { Clients } from "../utils/manfred/clients";
+import { Message, getManfredResponse } from "../utils/manfred/chat";
 
 import "./ManfredChat.css";
 

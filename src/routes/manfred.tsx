@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Clients, decryptClients } from "../utils/manfred";
+import { Clients, decryptClients } from "../utils/manfred/clients";
 
 import ManfredChat from "../components/ManfredChat";
 import PasswordGate from "../components/PasswordGate";
