@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-
-import PasswordInput from "../components/PasswordInput";
+import { useState } from "react";
 
 import { decrypt, passwordToKey } from "../encryption";
 
@@ -9,54 +7,51 @@ function PasswordGate({
 }: {
   setCorrectEncryptionKey: (key: CryptoKey) => void;
 }) {
-  const [password, setPassword] = useState<string | null>(null);
-  const [encryptionKey, setEncryptionKey] = useState<CryptoKey | null>(null);
-  const [decryptionStatus, setDecryptionStatus] = useState<string | null>(null);
+  const [password, setPassword] = useState("");
+  const [decryptionStatus, setDecryptionStatus] = useState<
+    "success" | "failure" | "decrypting" | "not started"
+  >("not started");
 
-  useEffect(() => {
-    const generateKey = async () => {
-      if (password === null) {
-        return;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const key = await passwordToKey(password);
+    try {
+      const decryptedData = await decrypt({
+        key,
+        encryptedData: encryptedStatus,
+      });
+      if (decryptedData !== "success") {
+        throw new Error("decryption failed");
       }
-      const key = await passwordToKey(password);
-      setEncryptionKey(key);
-    };
+    } catch {
+      setDecryptionStatus("failure");
+      return;
+    }
+    setDecryptionStatus("success");
+    setCorrectEncryptionKey(key);
+  };
 
-    generateKey();
-  }, [password]);
-
-  useEffect(() => {
-    const decryptData = async () => {
-      if (encryptionKey === null) {
-        return;
-      }
-      try {
-        const decryptedData = await decrypt({
-          key: encryptionKey,
-          encryptedData: encryptedStatus,
-        });
-        setDecryptionStatus(decryptedData);
-        setCorrectEncryptionKey(encryptionKey);
-      } catch {
-        setDecryptionStatus("failure");
-      }
-    };
-
-    decryptData();
-  }, [encryptionKey, setCorrectEncryptionKey]);
-
-  return decryptionStatus === null ? (
-    <div style={{ textAlign: "center" }}>
+  return (
+    <>
       <h1>Enter password</h1>
-      <PasswordInput onSubmit={setPassword} />
-    </div>
-  ) : decryptionStatus === "success" ? (
-    <p>Decryption successful</p>
-  ) : (
-    <div style={{ textAlign: "center" }}>
-      <h1>Wrong password, try again</h1>
-      <PasswordInput onSubmit={setPassword} />
-    </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="Masło"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </form>
+      {decryptionStatus === "not started" ? (
+        <></>
+      ) : decryptionStatus === "decrypting" ? (
+        <p>Decrypting...</p>
+      ) : decryptionStatus === "success" ? (
+        <p>Decryption successful</p>
+      ) : (
+        <p>Wrong password, try again</p>
+      )}
+    </>
   );
 }
 

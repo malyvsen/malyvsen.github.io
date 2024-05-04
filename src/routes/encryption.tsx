@@ -1,69 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import PasswordInput from "../components/PasswordInput";
 import { encrypt, decrypt, passwordToKey } from "../encryption";
 
 function Encryption() {
-  const [password, setPassword] = useState<string | null>(null);
-  const [payload, setPayload] = useState("");
-  const [encryptionKey, setEncryptionKey] = useState<CryptoKey | null>(null);
+  const [password, setPassword] = useState("");
+  const [data, setData] = useState("");
   const [encryptedData, setEncryptedData] = useState<Uint8Array | null>(null);
   const [decryptedData, setDecryptedData] = useState<string | null>(null);
 
-  useEffect(() => {
-    const generateKey = async () => {
-      if (password === null) {
-        return;
-      }
-      const key = await passwordToKey(password);
-      setEncryptionKey(key);
-    };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const key = await passwordToKey(password);
 
-    generateKey();
-  }, [password]);
+    const encryptedData = await encrypt({
+      key,
+      data,
+    });
+    setEncryptedData(encryptedData);
 
-  useEffect(() => {
-    const encryptData = async () => {
-      if (encryptionKey === null) {
-        return;
-      }
-      const encryptedData = await encrypt({
-        key: encryptionKey,
-        data: payload,
-      });
-      setEncryptedData(encryptedData);
-    };
-
-    encryptData();
-  }, [encryptionKey, payload]);
-
-  useEffect(() => {
-    const decryptData = async () => {
-      if (encryptionKey === null) {
-        return;
-      }
-      if (encryptedData === null) {
-        return;
-      }
-      const decryptedData = await decrypt({
-        key: encryptionKey,
-        encryptedData,
-      });
-      setDecryptedData(decryptedData);
-    };
-
-    decryptData();
-  }, [encryptionKey, encryptedData]);
+    const decryptedData = await decrypt({
+      key,
+      encryptedData,
+    });
+    setDecryptedData(decryptedData);
+  };
 
   return (
     <>
-      Password: <PasswordInput onSubmit={setPassword} />
-      Data:{" "}
-      <input
-        type="text"
-        value={payload}
-        onChange={(e) => setPayload(e.target.value)}
-      />
+      <h1>Encryption playground</h1>
+      <form onSubmit={handleSubmit}>
+        <p>
+          Password:{" "}
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </p>
+        <p>
+          Data:{" "}
+          <input
+            type="text"
+            value={data}
+            onChange={(e) => setData(e.target.value)}
+          />
+        </p>
+        <button type="submit" style={{ display: "none" }} />
+      </form>
       <p>Encrypted payload:</p>
       <pre>{encryptedData?.join(", ")}</pre>
       <p>Decrypted payload: </p>
