@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import ManfredChat from "../components/ManfredChat";
 import PasswordGate from "../components/PasswordGate";
 
 function Manfred() {
@@ -8,7 +9,7 @@ function Manfred() {
   return encryptionKey === null ? (
     <PasswordGate setCorrectEncryptionKey={setEncryptionKey} />
   ) : (
-    <h1>Manfred</h1>
+    <ManfredChat encryptionKey={encryptionKey} />
   );
 }
 
