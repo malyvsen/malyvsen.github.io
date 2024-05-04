@@ -6,6 +6,11 @@ body {
   color: #000000;
 }
 
+h1 {
+  font-size: 3em;
+  font-weight: 400;
+}
+
 pre {
   font-family: "Space Mono", monospace;
   background-color: #eeeeee;
@@ -14,12 +19,12 @@ pre {
 }
 
 input {
+  height: 1.5em;
   border: 0;
   border-bottom: 1px solid black;
   background: none;
-  height: 24px;
   font-family: "Space Grotesk", sans-serif;
-  font-size: 20px;
+  font-size: 1em;
 }
 
 input:focus {

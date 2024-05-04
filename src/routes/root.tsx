@@ -20,9 +20,6 @@ function Root() {
     >
       <h1
         style={{
-          fontSize: "48px",
-          fontWeight: 400,
-          color: "black",
           writingMode: "vertical-rl",
           rotate: "180deg",
           margin: "1rem",
@@ -40,17 +37,19 @@ function Root() {
           alignItems: "flex-start",
         }}
       >
-        <Link className="link" to="/actor">
-          actor
-        </Link>
-        <Link className="link" to="/writer">
-          writer
-        </Link>
-        <Link className="link" to="/programmer">
-          programmer
-        </Link>
+        <BigLink to="actor" />
+        <BigLink to="writer" />
+        <BigLink to="programmer" />
       </div>
     </div>
+  );
+}
+
+function BigLink({ to }: { to: string }) {
+  return (
+    <Link className="big-link" to={to}>
+      {to}
+    </Link>
   );
 }
 
