@@ -32,7 +32,7 @@ function PasswordGate({
   };
 
   return (
-    <>
+    <div style={{ textAlign: "center" }}>
       <h1>Enter password</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -52,7 +52,7 @@ function PasswordGate({
       ) : (
         <p>Wrong password, try again</p>
       )}
-    </>
+    </div>
   );
 }
 
