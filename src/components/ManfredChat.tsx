@@ -63,9 +63,10 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
     addManfredResponse();
   }, [clients, messages]);
 
+  const height = messages.length === 0 ? "10vh" : "100vh";
   return (
     <div className="manfred-container-outer">
-      <div className="manfred-container-inner">
+      <div className="manfred-container-inner" style={{ height }}>
         <h1>Manfred</h1>
         <div className="messages-container">
           {messages.map((message, index) => (
