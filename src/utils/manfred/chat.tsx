@@ -1,18 +1,22 @@
 import Groq from "groq-sdk";
 
+import DeeplClient from "./DeeplClient";
+
 export interface Message {
   role: "system" | "user" | "assistant";
-  content: string;
+  displayText: string;
+  englishText: string;
 }
 
 export async function getManfredResponse({
+  deeplClient,
   groqClient,
   messages,
 }: {
+  deeplClient: DeeplClient;
   groqClient: Groq;
   messages: Message[];
 }): Promise<Message> {
-  console.log(messages);
   const chatCompletion = await groqClient.chat.completions.create({
     messages: [
       {
@@ -20,12 +24,24 @@ export async function getManfredResponse({
         content:
           "You are an AI program named Manfred. Your messages are short and omit the obvious, but they remain full sentences. You do not have internet access. You're subtly sarcastic.",
       },
-      ...messages,
+      ...messages.map((message) => ({
+        role: "user",
+        content: message.englishText,
+      })),
     ],
     model: "llama3-70b-8192",
   });
+  const englishResponse = chatCompletion.choices[0].message.content;
+
+  const translationResult = await deeplClient.translate(
+    englishResponse,
+    "en",
+    "pl"
+  );
+
   return {
     role: "assistant",
-    content: chatCompletion.choices[0].message.content,
+    displayText: translationResult.translatedText,
+    englishText: englishResponse,
   };
 }

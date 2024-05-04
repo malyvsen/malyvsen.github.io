@@ -12,11 +12,18 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const translationResult = await clients.deepl.translate(
+      wipMessage,
+      null,
+      "en"
+    );
+
     setMessages([
       ...messages,
       {
         role: "user",
-        content: wipMessage,
+        displayText: wipMessage,
+        englishText: translationResult.translatedText,
       },
     ]);
     setWipMessage("");
@@ -32,6 +39,7 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
 
     const addManfredResponse = async () => {
       const response = await getManfredResponse({
+        deeplClient: clients.deepl,
         groqClient: clients.groq,
         messages,
       });
@@ -46,7 +54,9 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
       <div className="messages-container">
         {messages.map((message, index) => (
           <div className="message" key={index}>
-            {message.content}
+            {message.displayText}
+            <br />
+            (appears as "{message.englishText}" to the LLM)
           </div>
         ))}
       </div>
