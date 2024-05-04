@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { encrypt } from "../encryption";
 
+import "./ManfredChat.css";
+
 interface Message {
   text: string;
 }
@@ -23,13 +25,15 @@ function ManfredChat({ encryptionKey }: { encryptionKey: CryptoKey }) {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="container">
       <h1>Manfred</h1>
-      <ul>
+      <div className="messages-container">
         {messages.map((message, index) => (
-          <li key={index}>{message.text}</li>
+          <div className="message" key={index}>
+            {message.text}
+          </div>
         ))}
-      </ul>
+      </div>
       <form onSubmit={handleSendMessage}>
         <input
           type="text"
