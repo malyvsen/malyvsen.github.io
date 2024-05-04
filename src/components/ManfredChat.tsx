@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
 
+import MessageComponent from "./MessageComponent";
+
 import "./ManfredChat.css";
 
 export default function ManfredChat({ clients }: { clients: Clients }) {
@@ -58,22 +60,19 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
       <h1>Manfred</h1>
       <div className="messages-container">
         {messages.map((message, index) => (
-          <div className="message" key={index}>
-            {message.foreignText}
-            <br />
-            <span style={{ color: "gray" }}>{message.englishText}</span>
-          </div>
+          <MessageComponent message={message} key={index} />
         ))}
+        <form className="message-input-container" onSubmit={handleSendMessage}>
+          <input
+            className="message-input"
+            type="text"
+            placeholder="Wiadomość do Manfreda"
+            value={wipMessage}
+            onChange={(e) => setWipMessage(e.target.value)}
+          />
+          <button type="submit" style={{ display: "none" }} />
+        </form>
       </div>
-      <form onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          placeholder="Wiadomość do Manfreda"
-          value={wipMessage}
-          onChange={(e) => setWipMessage(e.target.value)}
-        />
-        <button type="submit" style={{ display: "none" }} />
-      </form>
     </div>
   );
 }

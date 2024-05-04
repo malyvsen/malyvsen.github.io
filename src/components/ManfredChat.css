@@ -9,13 +9,21 @@
 .messages-container {
   display: flex;
   flex-direction: column;
+  width: min(100%, 32em);
+}
+
+.message-input-container {
   width: 100%;
 }
 
-.message {
-  padding: 10px;
-  margin-bottom: 10px;
+.message-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
   background-color: white;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  border-radius: 0.5em;
+  border: 1px solid black;
 }
