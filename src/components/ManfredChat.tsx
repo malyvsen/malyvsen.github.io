@@ -5,10 +5,14 @@ import { Message, getManfredResponse } from "../utils/manfred/chat";
 import useReader from "../utils/manfred/useReader";
 
 import MessageList from "./MessageList";
+import TextMessageInput from "./TextMessageInput";
 import VoiceMessageInput from "./VoiceMessageInput";
 
 export default function ManfredChat({ clients }: { clients: Clients }) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [interactionMode, setInteractionMode] = useState<"voice" | "text">(
+    "text"
+  );
   const readText = useReader(clients.elevenlabs);
 
   const sendMessage = useCallback(
@@ -40,9 +44,11 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
         messages: messagesWithUser,
       });
       setMessages([...messagesWithUser, manfredResponse]);
-      await readText(manfredResponse.polishText);
+      if (interactionMode === "voice") {
+        await readText(manfredResponse.polishText);
+      }
     },
-    [clients, messages, readText]
+    [clients, messages, interactionMode, readText]
   );
 
   return (
@@ -56,12 +62,24 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
         transition: "height 0.5s ease-in-out",
       }}
     >
-      <h1>Manfred</h1>
+      <h1 style={{ marginBottom: "0" }}>Manfred</h1>
+      <p
+        onClick={() =>
+          setInteractionMode(interactionMode === "voice" ? "text" : "voice")
+        }
+        style={{ marginTop: "0", userSelect: "none" }}
+      >
+        W trybie {interactionMode === "voice" ? "głosowym" : "tekstowym"}
+      </p>
       <MessageList messages={messages} />
-      <VoiceMessageInput
-        sendMessage={sendMessage}
-        openaiClient={clients.openai}
-      />
+      {interactionMode === "text" ? (
+        <TextMessageInput sendMessage={sendMessage} />
+      ) : (
+        <VoiceMessageInput
+          sendMessage={sendMessage}
+          openaiClient={clients.openai}
+        />
+      )}
     </div>
   );
 }
