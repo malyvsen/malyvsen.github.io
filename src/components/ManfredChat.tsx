@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
@@ -24,37 +24,26 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
         targetLanguage: "EN",
       });
 
-      setMessages([
+      const messagesWithUser: Message[] = [
         ...messages,
         {
           role: "user",
           polishText: messageText,
           englishText: translationResult.translatedText,
         },
-      ]);
-    },
-    [clients.deepl, messages]
-  );
+      ];
+      setMessages(messagesWithUser);
 
-  useEffect(() => {
-    if (messages.length === 0) {
-      return;
-    }
-    if (messages[messages.length - 1].role !== "user") {
-      return;
-    }
-
-    const addManfredResponse = async () => {
-      const response = await getManfredResponse({
+      const manfredResponse = await getManfredResponse({
         deeplClient: clients.deepl,
         groqClient: clients.groq,
-        messages,
+        messages: messagesWithUser,
       });
-      setMessages([...messages, response]);
-      await readText(response.polishText);
-    };
-    addManfredResponse();
-  }, [clients, messages, readText]);
+      setMessages([...messagesWithUser, manfredResponse]);
+      await readText(manfredResponse.polishText);
+    },
+    [clients, messages, readText]
+  );
 
   return (
     <div
