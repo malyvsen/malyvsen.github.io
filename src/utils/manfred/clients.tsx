@@ -3,11 +3,13 @@ import OpenAI from "openai";
 
 import { decrypt } from "../encryption";
 import DeeplClient from "./DeeplClient";
+import ElevenLabsClient from "./ElevenLabsClient";
 
 export interface Clients {
   groq: Groq;
   deepl: DeeplClient;
   openai: OpenAI;
+  elevenlabs: ElevenLabsClient;
 }
 
 export async function decryptClients(key: CryptoKey) {
@@ -23,6 +25,10 @@ export async function decryptClients(key: CryptoKey) {
     key,
     encryptedData: encryptedKeys.openai,
   });
+  const decryptedElevenlabsKey = await decrypt({
+    key,
+    encryptedData: encryptedKeys.elevenlabs,
+  });
   return {
     groq: new Groq({ dangerouslyAllowBrowser: true, apiKey: decryptedGroqKey }),
     deepl: new DeeplClient(decryptedDeeplKey),
@@ -30,6 +36,7 @@ export async function decryptClients(key: CryptoKey) {
       dangerouslyAllowBrowser: true,
       apiKey: decryptedOpenAIKey,
     }),
+    elevenlabs: new ElevenLabsClient(decryptedElevenlabsKey),
   };
 }
 
@@ -53,5 +60,10 @@ const encryptedKeys = {
     209, 37, 13, 101, 197, 38, 23, 184, 199, 216, 40, 67, 218, 209, 170, 233,
     126, 211, 39, 171, 144, 53, 59, 191, 105, 77, 95, 76, 151, 184, 45, 6, 44,
     61,
+  ]),
+  elevenlabs: new Uint8Array([
+    189, 118, 71, 219, 235, 38, 206, 181, 213, 70, 24, 70, 158, 170, 62, 107,
+    117, 6, 98, 80, 181, 13, 78, 181, 108, 216, 177, 35, 1, 218, 147, 63, 2, 79,
+    250, 178, 65, 27, 155, 145, 208, 241, 214, 7, 203, 79, 78, 247,
   ]),
 };

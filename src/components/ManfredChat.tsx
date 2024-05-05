@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
@@ -7,6 +7,7 @@ import MessageList from "./MessageList";
 import VoiceMessageInput from "./VoiceMessageInput";
 
 export default function ManfredChat({ clients }: { clients: Clients }) {
+  const audioContextRef = useRef(new window.AudioContext());
   const [messages, setMessages] = useState<Message[]>([]);
 
   const sendMessage = useCallback(
@@ -49,6 +50,15 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
         messages,
       });
       setMessages([...messages, response]);
+
+      const audioStream = await clients.elevenlabs.generateSpeech(
+        response.polishText
+      );
+      const audioBlob = await new Response(audioStream).blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audioElement = document.createElement("audio");
+      audioElement.src = audioUrl;
+      audioElement.play();
     };
     addManfredResponse();
   }, [clients, messages]);
