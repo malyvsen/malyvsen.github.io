@@ -11,9 +11,9 @@
   padding-right: 0.5em;
   padding-top: 1em;
   padding-bottom: 1em;
-  background-color: white;
+  background-color: var(--fill-color);
   border-radius: 0.5em;
-  border: 1px solid black;
+  border: 1px solid var(--outline-color);
 
   font-family: "Space Grotesk", sans-serif;
   font-size: 1em;
@@ -21,4 +21,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-color);
 }

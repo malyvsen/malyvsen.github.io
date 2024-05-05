@@ -1,12 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
+.light-theme {
+  --background-color: #f5f5f5;
+  --fill-color: white;
+  --text-color: black;
+  --outline-color: black;
+  --link-color: darkgray;
+}
+
+.dark-theme {
+  --background-color: #171311;
+  --fill-color: #1e1e1e;
+  --text-color: #a13f0c;
+  --outline-color: #a13f0c;
+  --link-color: darkgray;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
   font-family: "Space Grotesk", sans-serif;
-  background-color: #f5f5f5;
-  color: #000000;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 h1 {
@@ -14,9 +30,13 @@ h1 {
   font-weight: 400;
 }
 
+a {
+  color: var(--link-color);
+}
+
 pre {
   font-family: "Space Mono", monospace;
-  background-color: #eeeeee;
+  background-color: var(--fill-color);
   border-radius: 5px;
   padding: 5px;
 }
@@ -24,10 +44,11 @@ pre {
 input {
   height: 1.5em;
   border: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--outline-color);
   background: none;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1em;
+  color: var(--text-color);
 }
 
 input:focus {

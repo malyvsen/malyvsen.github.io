@@ -3,6 +3,6 @@
   max-width: 75%;
   padding: 0.5em;
   margin-bottom: 0.5em;
-  background-color: white;
+  background-color: var(--fill-color);
   border-radius: 0.5em;
 }

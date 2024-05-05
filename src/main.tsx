@@ -6,6 +6,8 @@ import Root from "./routes/root.tsx";
 import Manfred from "./routes/manfred.tsx";
 import Encryption from "./routes/encryption.tsx";
 
+import ThemeProvider from "./components/ThemeProvider";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +25,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
