@@ -4,23 +4,19 @@ import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
 import { testMessages } from "../utils/manfred/testMessages";
 
+import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 
-import "./ManfredChat.css";
-
 export default function ManfredChat({ clients }: { clients: Clients }) {
-  const [wipMessage, setWipMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>(testMessages);
 
-  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const sendMessage = async (messageText: string) => {
     const translationContext = messages
       .slice(-3, messages.length)
       .map((message) => message.polishText)
       .join("\n");
     const translationResult = await clients.deepl.translate({
-      text: wipMessage,
+      text: messageText,
       context: translationContext,
       sourceLanguage: "PL",
       targetLanguage: "EN",
@@ -30,11 +26,10 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
       ...messages,
       {
         role: "user",
-        polishText: wipMessage,
+        polishText: messageText,
         englishText: translationResult.translatedText,
       },
     ]);
-    setWipMessage("");
   };
 
   useEffect(() => {
@@ -69,16 +64,7 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
     >
       <h1>Manfred</h1>
       <MessageList messages={messages} />
-      <form className="message-input-container" onSubmit={handleSendMessage}>
-        <input
-          className="message-input"
-          type="text"
-          placeholder="Wiadomość do Manfreda"
-          value={wipMessage}
-          onChange={(e) => setWipMessage(e.target.value)}
-        />
-        <button type="submit" style={{ display: "none" }} />
-      </form>
+      <MessageInput onSubmit={sendMessage} />
     </div>
   );
 }
