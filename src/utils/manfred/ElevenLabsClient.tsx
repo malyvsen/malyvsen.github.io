@@ -25,7 +25,6 @@ export default class ElevenLabsClient {
     if (!response.ok || response.body === null) {
       throw new Error(`ElevenLabs returned unexpected response: ${response}`);
     }
-    console.log(response);
     return response.body;
   }
 }
