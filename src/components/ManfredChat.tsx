@@ -2,13 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
-import { testMessages } from "../utils/manfred/testMessages";
 
 import MessageList from "./MessageList";
 import VoiceMessageInput from "./VoiceMessageInput";
 
 export default function ManfredChat({ clients }: { clients: Clients }) {
-  const [messages, setMessages] = useState<Message[]>(testMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const sendMessage = useCallback(
     async (messageText: string) => {
@@ -67,7 +66,10 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
     >
       <h1>Manfred</h1>
       <MessageList messages={messages} />
-      <VoiceMessageInput onSubmit={sendMessage} />
+      <VoiceMessageInput
+        sendMessage={sendMessage}
+        openaiClient={clients.openai}
+      />
     </div>
   );
 }
