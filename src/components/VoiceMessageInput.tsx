@@ -15,9 +15,30 @@ export default function VoiceMessageInput({
     useAudioRecorder();
 
   useEffect(() => {
-    // get audio permission
+    // get user's permission to access the microphone
     navigator.mediaDevices.getUserMedia({ audio: true });
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === " ") {
+        startRecording();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === " ") {
+        stopRecording();
+      }
+    };
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [startRecording, stopRecording]);
 
   const oldRecordingBlob = useRef<Blob | null>(null);
   useEffect(() => {
