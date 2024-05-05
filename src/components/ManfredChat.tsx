@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 
 import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
+import { testMessages } from "../utils/manfred/testMessages";
 
-import MessageComponent from "./MessageComponent";
+import MessageList from "./MessageList";
 
 import "./ManfredChat.css";
 
 export default function ManfredChat({ clients }: { clients: Clients }) {
   const [wipMessage, setWipMessage] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(testMessages);
 
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,11 +69,7 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
     <div className="manfred-container-outer">
       <div className="manfred-container-inner" style={{ height }}>
         <h1>Manfred</h1>
-        <div className="messages-container">
-          {messages.map((message, index) => (
-            <MessageComponent message={message} key={index} />
-          ))}
-        </div>
+        <MessageList messages={messages} />
         <form className="message-input-container" onSubmit={handleSendMessage}>
           <input
             className="message-input"
