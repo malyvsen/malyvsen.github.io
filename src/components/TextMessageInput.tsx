@@ -1,39 +1,28 @@
 import { useState } from "react";
 
+import "./MessageInput.css";
+
 export default function TextMessageInput({
-  onSubmit,
+  sendMessage,
 }: {
-  onSubmit: (message: string) => Promise<void>;
+  sendMessage: (message: string) => Promise<void>;
 }) {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(message);
+    sendMessage(message);
     setMessage("");
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{ width: "100%", paddingBottom: "0.5em" }}
-    >
+    <form onSubmit={handleSubmit} className="message-input-container">
       <input
         type="text"
         placeholder="Wiadomość do Manfreda"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        style={{
-          boxSizing: "border-box",
-          width: "100%",
-          paddingLeft: "0.5em",
-          paddingRight: "0.5em",
-          paddingTop: "1em",
-          paddingBottom: "1em",
-          backgroundColor: "white",
-          borderRadius: "0.5em",
-          border: "1px solid black",
-        }}
+        className="message-input"
       />
       <button type="submit" style={{ display: "none" }} />
     </form>

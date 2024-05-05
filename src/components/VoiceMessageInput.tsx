@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useAudioRecorder } from "react-audio-voice-recorder";
 import OpenAI from "openai";
 
+import "./MessageInput.css";
+
 export default function VoiceMessageInput({
   sendMessage: sendMessage,
   openaiClient,
@@ -43,23 +45,15 @@ export default function VoiceMessageInput({
   }, [sendMessage, openaiClient, recordingBlob]);
 
   return (
-    <div style={{ width: "100%", paddingBottom: "0.5em" }}>
+    <div className="message-input-container">
       <button
         onMouseDown={startRecording}
         onMouseUp={stopRecording}
-        style={{
-          boxSizing: "border-box",
-          width: "100%",
-          paddingLeft: "0.5em",
-          paddingRight: "0.5em",
-          paddingTop: "1em",
-          paddingBottom: "1em",
-          backgroundColor: "white",
-          borderRadius: "0.5em",
-          border: "1px solid black",
-        }}
+        className="message-input"
       >
-        {isRecording ? "Recording..." : "Start recordning"}
+        {isRecording
+          ? "Nagrywanie - puść, aby zakończyć"
+          : "Przytrzymaj, aby nagrać głosówkę"}
       </button>
     </div>
   );

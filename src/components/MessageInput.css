@@ -1,0 +1,24 @@
+.message-input-container {
+  width: 100%;
+  padding-bottom: 0.5em;
+}
+
+.message-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 1.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: white;
+  border-radius: 0.5em;
+  border: 1px solid black;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
