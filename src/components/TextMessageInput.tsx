@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function MessageInput({
+export default function TextMessageInput({
   onSubmit,
 }: {
   onSubmit: (message: string) => Promise<void>;

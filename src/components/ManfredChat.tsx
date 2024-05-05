@@ -1,36 +1,39 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Clients } from "../utils/manfred/clients";
 import { Message, getManfredResponse } from "../utils/manfred/chat";
 import { testMessages } from "../utils/manfred/testMessages";
 
-import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
+import VoiceMessageInput from "./VoiceMessageInput";
 
 export default function ManfredChat({ clients }: { clients: Clients }) {
   const [messages, setMessages] = useState<Message[]>(testMessages);
 
-  const sendMessage = async (messageText: string) => {
-    const translationContext = messages
-      .slice(-3, messages.length)
-      .map((message) => message.polishText)
-      .join("\n");
-    const translationResult = await clients.deepl.translate({
-      text: messageText,
-      context: translationContext,
-      sourceLanguage: "PL",
-      targetLanguage: "EN",
-    });
+  const sendMessage = useCallback(
+    async (messageText: string) => {
+      const translationContext = messages
+        .slice(-3, messages.length)
+        .map((message) => message.polishText)
+        .join("\n");
+      const translationResult = await clients.deepl.translate({
+        text: messageText,
+        context: translationContext,
+        sourceLanguage: "PL",
+        targetLanguage: "EN",
+      });
 
-    setMessages([
-      ...messages,
-      {
-        role: "user",
-        polishText: messageText,
-        englishText: translationResult.translatedText,
-      },
-    ]);
-  };
+      setMessages([
+        ...messages,
+        {
+          role: "user",
+          polishText: messageText,
+          englishText: translationResult.translatedText,
+        },
+      ]);
+    },
+    [clients.deepl, messages]
+  );
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -64,7 +67,7 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
     >
       <h1>Manfred</h1>
       <MessageList messages={messages} />
-      <MessageInput onSubmit={sendMessage} />
+      <VoiceMessageInput onSubmit={sendMessage} />
     </div>
   );
 }
