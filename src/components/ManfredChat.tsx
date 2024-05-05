@@ -56,23 +56,29 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
     addManfredResponse();
   }, [clients, messages]);
 
-  const height = messages.length === 0 ? "10vh" : "100vh";
   return (
-    <div className="manfred-container-outer">
-      <div className="manfred-container-inner" style={{ height }}>
-        <h1>Manfred</h1>
-        <MessageList messages={messages} />
-        <form className="message-input-container" onSubmit={handleSendMessage}>
-          <input
-            className="message-input"
-            type="text"
-            placeholder="Wiadomość do Manfreda"
-            value={wipMessage}
-            onChange={(e) => setWipMessage(e.target.value)}
-          />
-          <button type="submit" style={{ display: "none" }} />
-        </form>
-      </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "min(100%, 32em)",
+        height: messages.length === 0 ? "10vh" : "100vh",
+        transition: "height 0.5s ease-in-out",
+      }}
+    >
+      <h1>Manfred</h1>
+      <MessageList messages={messages} />
+      <form className="message-input-container" onSubmit={handleSendMessage}>
+        <input
+          className="message-input"
+          type="text"
+          placeholder="Wiadomość do Manfreda"
+          value={wipMessage}
+          onChange={(e) => setWipMessage(e.target.value)}
+        />
+        <button type="submit" style={{ display: "none" }} />
+      </form>
     </div>
   );
 }

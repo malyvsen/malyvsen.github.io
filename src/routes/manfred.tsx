@@ -13,10 +13,21 @@ function Manfred() {
     setClients(decryptedClients);
   };
 
-  return clients === null ? (
-    <PasswordGate decryptData={setDecryptedClients} />
-  ) : (
-    <ManfredChat clients={clients} />
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "85vh",
+      }}
+    >
+      {clients === null ? (
+        <PasswordGate decryptData={setDecryptedClients} />
+      ) : (
+        <ManfredChat clients={clients} />
+      )}
+    </div>
   );
 }
 
