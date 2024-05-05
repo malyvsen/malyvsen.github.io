@@ -14,14 +14,14 @@ export default class DeeplClient {
   }: {
     text: string;
     context?: string;
-    sourceLanguage?: string;
+    sourceLanguage: string;
     targetLanguage: string;
   }): Promise<TranslationResult> {
     const params = new URLSearchParams({
       auth_key: this.key,
       text: text,
       ...(context !== undefined ? { context } : {}),
-      ...(sourceLanguage !== undefined ? { source_lang: sourceLanguage } : {}),
+      source_lang: sourceLanguage,
       target_lang: targetLanguage,
     });
 

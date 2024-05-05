@@ -16,7 +16,7 @@ export default function MessageComponent({ message }: { message: Message }) {
       style={{ textAlign: textAlign, alignSelf: alignSelf }}
       onClick={() => setIsExpanded(!isExpanded)}
     >
-      {message.foreignText}
+      {message.polishText}
       {isExpanded ? (
         <>
           <br />

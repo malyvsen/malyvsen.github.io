@@ -17,28 +17,20 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
 
     const translationContext = messages
       .slice(-3, messages.length)
-      .map((message) => message.foreignText)
+      .map((message) => message.polishText)
       .join("\n");
-    const translationParams = {
+    const translationResult = await clients.deepl.translate({
       text: wipMessage,
       context: translationContext,
+      sourceLanguage: "PL",
       targetLanguage: "EN",
-    };
-    let translationResult = await clients.deepl.translate(translationParams);
-    if (!["PL", "EN"].includes(translationResult.detectedSourceLanguage)) {
-      // it's probably Polish :)
-      translationResult = await clients.deepl.translate({
-        ...translationParams,
-        sourceLanguage: "PL",
-      });
-    }
+    });
 
     setMessages([
       ...messages,
       {
         role: "user",
-        foreignLanguage: translationResult.detectedSourceLanguage,
-        foreignText: wipMessage,
+        polishText: wipMessage,
         englishText: translationResult.translatedText,
       },
     ]);
