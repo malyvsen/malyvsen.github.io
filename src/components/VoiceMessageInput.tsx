@@ -14,6 +14,11 @@ export default function VoiceMessageInput({
   const { startRecording, stopRecording, recordingBlob, isRecording } =
     useAudioRecorder();
 
+  useEffect(() => {
+    // get audio permission
+    navigator.mediaDevices.getUserMedia({ audio: true });
+  }, []);
+
   const oldRecordingBlob = useRef<Blob | null>(null);
   useEffect(() => {
     const sendTranscription = async () => {
