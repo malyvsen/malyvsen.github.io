@@ -22,7 +22,7 @@ export async function getManfredResponse({
       {
         role: "system",
         content:
-          "You are an AI program named Manfred. Your messages are short and occasionally sarcastic. You do not have internet access.",
+          "You are Manfred, a sarcastic AI program. Your messages are usually no more than a sentence, but you elaborate if necessary. You can't access the Internet.",
       },
       ...messages.slice(-10).map((message) => ({
         role: "user",
