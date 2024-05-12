@@ -6,6 +6,7 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const defaultTheme = "light-theme";
   useEffect(() => {
     const setTheme = () => {
       const { light } = daynight();
@@ -13,8 +14,11 @@ export default function ThemeProvider({
     };
     setTheme();
     const interval = setInterval(setTheme, 10 * 1000);
-    return () => clearInterval(interval);
+    return () => {
+      document.body.className = defaultTheme;
+      clearInterval(interval);
+    };
   }, []);
 
-  return <>{children}</>;
+  return children;
 }
