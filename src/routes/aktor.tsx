@@ -15,20 +15,33 @@ export default function Aktor() {
         backgroundColor: "#ece0d7",
       }}
     >
-      <img
-        src="/src/assets/cutout.png"
-        alt="Fotografia Mikołaja Bocheńskiego"
-        style={{
-          maxWidth: "100%",
-          maxHeight: "100%",
-          verticalAlign: "top",
-        }}
-      />
       <div
         style={{
           display: "flex",
           flexDirection: "column",
+          justifyContent: "flex-end",
+          alignItems: "start",
+          height: "100%",
+        }}
+      >
+        <img
+          src="/src/assets/cutout.png"
+          alt="Fotografia Mikołaja Bocheńskiego"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+            verticalAlign: "top",
+          }}
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "75%",
           maxWidth: "50em",
+          marginRight: "2em",
         }}
       >
         <h1>Mikołaj Bocheński</h1>
