@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./routes/root.tsx";
-import Aktor from "./routes/aktor.tsx";
-import Manfred from "./routes/manfred.tsx";
-import Encryption from "./routes/encryption.tsx";
+import Home from "./home";
+import Aktor from "./aktor";
+import Manfred from "./manfred";
+import Szyfrownica from "./szyfrownica";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Home />,
   },
   {
     path: "/aktor",
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
     element: <Manfred />,
   },
   {
-    path: "/encryption",
-    element: <Encryption />,
+    path: "/szyfrownica",
+    element: <Szyfrownica />,
   },
 ]);
 

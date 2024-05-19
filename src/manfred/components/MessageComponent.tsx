@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Message } from "../utils/manfred/chat";
+import { Message } from "../utils/chat";
 
 import "./MessageComponent.css";
 

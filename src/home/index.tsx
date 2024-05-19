@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import MalyvsenAnimation from "../components/MalyvsenAnimation";
+import MalyvsenAnimation from "./MalyvsenAnimation";
 
-import "./root.css";
+import "./index.css";
 
-function Root() {
+function Home() {
   useEffect(() => {
     document.title = "Malyvsen";
   }, []);
@@ -59,4 +59,4 @@ function BigLink({ to }: { to: string }) {
   );
 }
 
-export default Root;
+export default Home;

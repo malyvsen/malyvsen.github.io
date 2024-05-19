@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 
-import { Message } from "../utils/manfred/chat";
+import { Message } from "../utils/chat";
 
 import MessageComponent from "./MessageComponent";
 
