@@ -1,6 +1,6 @@
 export default function Hello() {
   return (
-    <div style={{ marginLeft: "2em", marginRight: "2em" }}>
+    <>
       <h1>Mikołaj Bocheński</h1>
       <p style={{ fontSize: "1.5em", textAlign: "justify" }}>
         Cześć! Jestem 25-letnim aktorem z Krakowa. Mówię z dobrym akcentem po
@@ -10,6 +10,6 @@ export default function Hello() {
         filmowego na Mulholland Academy w Amsterdamie, właśnie kończę pierwszy
         rok Szkoły Wokalno-Aktorskiej w Krakowie.
       </p>
-    </div>
+    </>
   );
 }
