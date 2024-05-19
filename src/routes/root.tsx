@@ -1,9 +1,15 @@
-import "./root.css";
-
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import MalyvsenAnimation from "../components/MalyvsenAnimation";
 
+import "./root.css";
+
 function Root() {
+  useEffect(() => {
+    document.title = "Malyvsen";
+  }, []);
+
   return (
     <div
       style={{

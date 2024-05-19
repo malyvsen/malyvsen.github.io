@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { encrypt, decrypt, passwordToKey } from "../utils/encryption";
 
@@ -24,6 +24,10 @@ function Encryption() {
     });
     setDecryptedData(decryptedData);
   };
+
+  useEffect(() => {
+    document.title = "Encryption playground";
+  }, []);
 
   return (
     <>

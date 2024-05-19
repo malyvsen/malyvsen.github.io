@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Clients, decryptClients } from "../utils/manfred/clients";
 
@@ -14,6 +14,10 @@ function Manfred() {
     const decryptedClients = await decryptClients(key);
     setClients(decryptedClients);
   };
+
+  useEffect(() => {
+    document.title = "Manfred";
+  }, []);
 
   return (
     <ThemeProvider>
