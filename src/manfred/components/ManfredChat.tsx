@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
-import { Clients } from "../utils/manfred/clients";
-import { Message, getManfredResponse } from "../utils/manfred/chat";
-import useReader from "../utils/manfred/useReader";
+import { Clients } from "../utils/clients";
+import { Message, getManfredResponse } from "../utils/chat";
+import useReader from "../utils/useReader";
 
 import MessageList from "./MessageList";
 import TextMessageInput from "./TextMessageInput";

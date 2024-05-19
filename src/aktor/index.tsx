@@ -29,7 +29,7 @@ export default function Aktor() {
       </div>
       <div style={{ display: "flex", width: "100%" }}>
         <img
-          src="/src/assets/cutout.png"
+          src="src/aktor/cutout.png"
           style={{
             width: "60%",
             marginTop: "-48px",

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { encrypt, decrypt, passwordToKey } from "../utils/encryption";
 
-function Encryption() {
+function Szyfrownica() {
   const [password, setPassword] = useState("");
   const [data, setData] = useState("");
   const [encryptedData, setEncryptedData] = useState<Uint8Array | null>(null);
@@ -26,15 +26,15 @@ function Encryption() {
   };
 
   useEffect(() => {
-    document.title = "Encryption playground";
+    document.title = "Szyfrownica";
   }, []);
 
   return (
     <>
-      <h1>Encryption playground</h1>
+      <h1>Szyfrownica</h1>
       <form onSubmit={handleSubmit}>
         <p>
-          Password:{" "}
+          Hasło:{" "}
           <input
             type="password"
             value={password}
@@ -42,7 +42,7 @@ function Encryption() {
           />
         </p>
         <p>
-          Data:{" "}
+          Dane:{" "}
           <input
             type="text"
             value={data}
@@ -51,12 +51,12 @@ function Encryption() {
         </p>
         <button type="submit" style={{ display: "none" }} />
       </form>
-      <p>Encrypted payload:</p>
+      <p>Zaszyfrowane dane:</p>
       <pre>{encryptedData?.join(", ")}</pre>
-      <p>Decrypted payload: </p>
+      <p>Rozszyfrowane dane: </p>
       <pre>{decryptedData}</pre>
     </>
   );
 }
 
-export default Encryption;
+export default Szyfrownica;

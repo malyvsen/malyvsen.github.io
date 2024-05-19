@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { Clients, decryptClients } from "../utils/manfred/clients";
+import { Clients, decryptClients } from "./utils/clients";
 
-import ManfredChat from "../components/ManfredChat";
-import PasswordGate from "../components/PasswordGate";
+import ManfredChat from "./components/ManfredChat";
+import PasswordGate from "./components/PasswordGate";
 
-import ThemeProvider from "../components/ThemeProvider";
+import ThemeProvider from "./components/ThemeProvider";
 
 function Manfred() {
   const [clients, setClients] = useState<Clients | null>(null);

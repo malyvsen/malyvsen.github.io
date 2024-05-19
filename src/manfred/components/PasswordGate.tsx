@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { decrypt, passwordToKey } from "../utils/encryption";
+import { decrypt, passwordToKey } from "@utils/encryption";
 import { TypeAnimation } from "react-type-animation";
 
 function PasswordGate({

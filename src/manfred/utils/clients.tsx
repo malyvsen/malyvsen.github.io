@@ -1,7 +1,7 @@
 import Groq from "groq-sdk";
 import OpenAI from "openai";
 
-import { decrypt } from "../encryption";
+import { decrypt } from "@utils/encryption";
 import DeeplClient from "./DeeplClient";
 import ElevenLabsClient from "./ElevenLabsClient";
 
