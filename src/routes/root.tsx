@@ -1,7 +1,7 @@
 import "./root.css";
 
 import { Link } from "react-router-dom";
-import Malyvsen from "../components/Malyvsen";
+import MalyvsenAnimation from "../components/MalyvsenAnimation";
 
 function Root() {
   return (
@@ -26,7 +26,7 @@ function Root() {
           padding: "0",
         }}
       >
-        <Malyvsen />
+        <MalyvsenAnimation />
       </h1>
 
       <div
@@ -37,9 +37,9 @@ function Root() {
           alignItems: "flex-start",
         }}
       >
-        <BigLink to="actor" />
-        <BigLink to="writer" />
-        <BigLink to="programmer" />
+        <BigLink to="aktor" />
+        <BigLink to="pisarz" />
+        <BigLink to="programista" />
       </div>
     </div>
   );
