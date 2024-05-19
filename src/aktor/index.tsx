@@ -40,6 +40,7 @@ export default function Aktor() {
         </div>
         <div style={{ display: "flex", width: "100%" }}>
           <FaceCutout style={{ width: "60%" }} />
+          <div style={{ width: "2em" }}></div>
           <Links />
         </div>
       </div>
@@ -66,7 +67,7 @@ export default function Aktor() {
           height: "100%",
         }}
       >
-        <FaceCutout style={{ maxWidth: "100%", maxHeight: "100%" }} />
+        <FaceCutout style={{ maxWidth: "100%", maxHeight: "95%" }} />
       </div>
       <div
         style={{
