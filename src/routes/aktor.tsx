@@ -9,43 +9,16 @@ export default function Aktor() {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
+        justifyContent: "space-between",
         alignItems: "center",
         height: "100vh",
         backgroundColor: "#ece0d7",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          alignItems: "start",
-          height: "100%",
-        }}
-      >
-        <img
-          src="/src/assets/cutout.png"
-          alt="Fotografia Mikołaja Bocheńskiego"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            objectFit: "contain",
-            verticalAlign: "top",
-          }}
-        />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "75%",
-          maxWidth: "50em",
-          marginRight: "2em",
-        }}
-      >
-        <h1>Mikołaj Bocheński</h1>
-        <p style={{ fontSize: "1.5em", textAlign: "justify" }}>
+      <div style={{ marginTop: "1em" }}>
+        <h1 style={{ textAlign: "center" }}>Mikołaj Bocheński</h1>
+        <p style={{ fontSize: "1.5em", textAlign: "justify", margin: "2em" }}>
           Cześć! Jestem 25-letnim aktorem z Krakowa. Mówię z dobrym akcentem po
           polsku, angielsku (dzieciństwo spędziłem w Kalifornii), niemiecku,
           holendersku, szwedzku i włosku. Mam doświadczenie przed kamerą i na
@@ -53,15 +26,41 @@ export default function Aktor() {
           filmowego na Mulholland Academy w Amsterdamie, właśnie kończę pierwszy
           rok Szkoły Wokalno-Aktorskiej w Krakowie.
         </p>
-        <p style={{ fontSize: "1.5em", textAlign: "justify" }}>
-          <a href="https://www.facebook.com/malyvsen">Facebook</a>
-          <br />
-          <a href="https://photos.app.goo.gl/yFrqRuZ5tNMAWF5MA">
-            Galeria zdjęć
-          </a>
-          <br />
-          <a href="https://www.youtube.com/watch?v=DupTZI6PZTQ">Demo filmowe</a>
-        </p>
+      </div>
+      <div style={{ display: "flex", width: "100%" }}>
+        <img
+          src="/src/assets/cutout.png"
+          style={{
+            width: "60%",
+            marginTop: "-48px",
+            marginRight: "-32px",
+            backgroundColor: "inherit",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "1.5em",
+              textAlign: "justify",
+            }}
+          >
+            <a href="https://www.facebook.com/malyvsen">Facebook</a>
+            <br />
+            <a href="https://photos.app.goo.gl/yFrqRuZ5tNMAWF5MA">
+              Galeria zdjęć
+            </a>
+            <br />
+            <a href="https://www.youtube.com/watch?v=DupTZI6PZTQ">
+              Demo filmowe
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
