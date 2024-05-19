@@ -1,4 +1,13 @@
+import { useEffect } from "react";
+
 export default function Aktor() {
+  useEffect(() => {
+    document.title = "Mikołaj Bocheński";
+    return () => {
+      document.title = "malyvsen";
+    };
+  }, []);
+
   return (
     <div
       style={{
