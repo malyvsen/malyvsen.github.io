@@ -1,10 +1,11 @@
-export default function Links() {
+export default function Links({ style }: { style?: React.CSSProperties }) {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        ...style,
       }}
     >
       <p style={{ fontSize: "1.4em" }}>

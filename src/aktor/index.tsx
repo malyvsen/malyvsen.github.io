@@ -31,7 +31,7 @@ export default function Aktor() {
         <div style={{ display: "flex", width: "100%" }}>
           <FaceCutout style={{ width: "60%" }} />
           <div style={{ width: "2em" }}></div>
-          <Links />
+          <Links style={{ marginRight: "2em" }} />
         </div>
       </div>
     );
