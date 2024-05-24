@@ -53,8 +53,7 @@ export default function Aktor() {
         display: "flex",
         flexDirection: "row",
         justifyContent: "start",
-        alignItems: "center",
-        height: "100vh",
+        minHeight: "100vh",
         backgroundColor: backgroundColor,
       }}
     >
@@ -64,6 +63,8 @@ export default function Aktor() {
           flexDirection: "column",
           justifyContent: "flex-end",
           alignItems: "start",
+          alignSelf: "end",
+          maxWidth: "40%",
           height: "100%",
         }}
       >
@@ -74,6 +75,7 @@ export default function Aktor() {
           width: "75%",
           maxWidth: "50em",
           marginRight: "2em",
+          alignSelf: "center",
         }}
       >
         <Hello />
