@@ -1,8 +1,4 @@
-import useScreenSize from "@utils/useScreenSize";
-
 export default function Links() {
-  const { width: screenWidth } = useScreenSize();
-
   return (
     <div
       style={{
@@ -11,11 +7,7 @@ export default function Links() {
         justifyContent: "center",
       }}
     >
-      <p
-        style={{
-          fontSize: screenWidth < 600 ? "1em" : "1.5em",
-        }}
-      >
+      <p style={{ fontSize: "1.4em" }}>
         <a href="https://www.facebook.com/malyvsen">Facebook</a>
         <br />
         <a href="https://photos.app.goo.gl/yFrqRuZ5tNMAWF5MA">Galeria zdjęć</a>
