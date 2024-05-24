@@ -1,29 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import FaceCutout from "./FaceCutout";
 import Hello from "./Hello";
 import Links from "./Links";
+import useScreenSize from "@utils/useScreenSize";
 
 export default function Aktor() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  const { width: screenWidth } = useScreenSize();
   const backgroundColor = "#ece0d7";
 
   useEffect(() => {
     document.title = "Mikołaj Bocheński";
   }, []);
 
-  if (windowWidth < 900) {
+  if (screenWidth < 900) {
     return (
       <div
         style={{

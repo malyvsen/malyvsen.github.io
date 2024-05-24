@@ -1,4 +1,8 @@
+import useScreenSize from "@utils/useScreenSize";
+
 export default function Links() {
+  const { width: screenWidth } = useScreenSize();
+
   return (
     <div
       style={{
@@ -9,7 +13,7 @@ export default function Links() {
     >
       <p
         style={{
-          fontSize: "1.5em",
+          fontSize: screenWidth < 600 ? "1em" : "1.5em",
         }}
       >
         <a href="https://www.facebook.com/malyvsen">Facebook</a>
