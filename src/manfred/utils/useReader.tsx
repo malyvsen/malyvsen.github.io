@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useCallback } from "react";
+import OpenAI from "openai";
 
-import ElevenLabsClient from "./ElevenLabsClient";
+import { useCallback, useEffect, useMemo } from "react";
 
-export default function useReader(elevenlabsClient: ElevenLabsClient) {
+export default function useReader(openai: OpenAI) {
   const audioElement = useMemo(() => {
     return new Audio();
   }, []);
@@ -13,12 +13,16 @@ export default function useReader(elevenlabsClient: ElevenLabsClient) {
 
   const readText = useCallback(
     async (text: string) => {
-      const audioStream = await elevenlabsClient.generateSpeech(text);
-      const audioBlob = await new Response(audioStream).blob();
+      const response = await openai.audio.speech.create({
+        model: "tts-1",
+        voice: "echo",
+        input: text,
+      });
+      const audioBlob = await response.blob();
       audioElement.src = URL.createObjectURL(audioBlob); // TODO: revokeObjectURL
       audioElement.play();
     },
-    [elevenlabsClient, audioElement]
+    [openai, audioElement]
   );
   return readText;
 }

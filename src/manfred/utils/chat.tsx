@@ -1,23 +1,18 @@
-import Groq from "groq-sdk";
-
-import DeeplClient from "./DeeplClient";
+import OpenAI from "openai";
 
 export interface Message {
   role: "system" | "user" | "assistant";
-  polishText: string;
-  englishText: string;
+  text: string;
 }
 
 export async function getManfredResponse({
-  deeplClient,
-  groqClient,
+  openai,
   messages,
 }: {
-  deeplClient: DeeplClient;
-  groqClient: Groq;
+  openai: OpenAI;
   messages: Message[];
 }): Promise<Message> {
-  const chatCompletion = await groqClient.chat.completions.create({
+  const chatCompletion = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
@@ -25,28 +20,17 @@ export async function getManfredResponse({
           "You're a sarcastic AI named Manfred. Try to only answer with one useful sentence, but elaborate if needed. You can't access the Internet.",
       },
       ...messages.slice(-10).map((message) => ({
-        role: "user",
-        content: message.englishText,
+        role: message.role,
+        content: message.text,
       })),
     ],
-    model: "llama3-70b-8192",
+    model: "gpt-4o",
   });
-  const englishResponse = chatCompletion.choices[0].message.content;
-
-  const translationContext = messages
-    .slice(-3, messages.length)
-    .map((message) => message.englishText)
-    .join("\n");
-  const translationResult = await deeplClient.translate({
-    text: englishResponse,
-    context: translationContext,
-    sourceLanguage: "EN",
-    targetLanguage: "PL",
-  });
-
+  if (chatCompletion.choices[0].message.content === null) {
+    throw new Error("OpenAI returned null message content");
+  }
   return {
     role: "assistant",
-    polishText: translationResult.translatedText,
-    englishText: englishResponse,
+    text: chatCompletion.choices[0].message.content,
   };
 }

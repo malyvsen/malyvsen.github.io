@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
-import { Clients } from "../utils/clients";
 import { Message, getManfredResponse } from "../utils/chat";
+import { Clients } from "../utils/clients";
 import useReader from "../utils/useReader";
 
 import MessageList from "./MessageList";
@@ -13,39 +13,26 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   const [interactionMode, setInteractionMode] = useState<"voice" | "text">(
     "text"
   );
-  const readText = useReader(clients.elevenlabs);
+  const readText = useReader(clients.openai);
 
   const sendMessage = useCallback(
     async (messageText: string) => {
-      const translationContext = messages
-        .slice(-3, messages.length)
-        .map((message) => message.polishText)
-        .join("\n");
-      const translationResult = await clients.deepl.translate({
-        text: messageText,
-        context: translationContext,
-        sourceLanguage: "PL",
-        targetLanguage: "EN",
-      });
-
       const messagesWithUser: Message[] = [
         ...messages,
         {
           role: "user",
-          polishText: messageText,
-          englishText: translationResult.translatedText,
+          text: messageText,
         },
       ];
       setMessages(messagesWithUser);
 
       const manfredResponse = await getManfredResponse({
-        deeplClient: clients.deepl,
-        groqClient: clients.groq,
+        openai: clients.openai,
         messages: messagesWithUser,
       });
       setMessages([...messagesWithUser, manfredResponse]);
       if (interactionMode === "voice") {
-        await readText(manfredResponse.polishText);
+        await readText(manfredResponse.text);
       }
     },
     [clients, messages, interactionMode, readText]
