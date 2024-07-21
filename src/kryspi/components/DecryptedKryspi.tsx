@@ -1,4 +1,5 @@
 import Clients from "@utils/clients";
+import { formatDate, formatTime } from "@utils/formatTime";
 import useNow from "@utils/useNow";
 
 import ManfredChat from "../../manfred/components/ManfredChat";
@@ -36,10 +37,8 @@ export default function DecryptedKryspi({ clients }: { clients: Clients }) {
           height: "100%",
         }}
       >
-        <h1>
-          {String(now.getHours()).padStart(2, "0")}:
-          {String(now.getMinutes()).padStart(2, "0")}
-        </h1>
+        <h1 style={{ marginBottom: "0" }}>{formatTime(now)}</h1>
+        <p style={{ marginTop: "0" }}>{formatDate(now)}</p>
       </div>
     </div>
   );
