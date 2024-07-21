@@ -38,7 +38,15 @@ function PasswordGate({
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "85vh",
+      }}
+    >
       <h1>Podaj hasło</h1>
       <form onSubmit={handleSubmit}>
         <input

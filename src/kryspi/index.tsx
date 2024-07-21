@@ -18,16 +18,7 @@ function Kryspi() {
   if (clients === null) {
     return (
       <ThemeProvider>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "85vh",
-          }}
-        >
-          <PasswordGate setClients={setClients} />
-        </div>
+        <PasswordGate setClients={setClients} />
       </ThemeProvider>
     );
   }

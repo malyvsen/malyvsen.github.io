@@ -11,6 +11,10 @@ function Manfred() {
 
   const [clients, setClients] = useState<Clients | null>(null);
 
+  if (clients === null) {
+    return <PasswordGate setClients={setClients} />;
+  }
+
   return (
     <div
       style={{
@@ -20,11 +24,7 @@ function Manfred() {
         minHeight: "85vh",
       }}
     >
-      {clients === null ? (
-        <PasswordGate setClients={setClients} />
-      ) : (
-        <ManfredChat clients={clients} />
-      )}
+      <ManfredChat clients={clients} />
     </div>
   );
 }
