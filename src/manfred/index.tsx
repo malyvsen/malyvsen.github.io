@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { useTitle } from "react-use";
 
-import { Clients, decryptClients } from "./utils/clients";
+import Clients from "@utils/clients";
+import PasswordGate from "@utils/PasswordGate";
 
 import ManfredChat from "./components/ManfredChat";
-import PasswordGate from "./components/PasswordGate";
 
 function Manfred() {
   useTitle("Manfred");
 
   const [clients, setClients] = useState<Clients | null>(null);
-  const setDecryptedClients = async (key: CryptoKey) => {
-    const decryptedClients = await decryptClients(key);
-    setClients(decryptedClients);
-  };
 
   return (
     <div
@@ -25,7 +21,7 @@ function Manfred() {
       }}
     >
       {clients === null ? (
-        <PasswordGate decryptData={setDecryptedClients} />
+        <PasswordGate setClients={setClients} />
       ) : (
         <ManfredChat clients={clients} />
       )}

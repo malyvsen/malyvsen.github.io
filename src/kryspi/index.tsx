@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useTitle } from "react-use";
 
+import Clients from "@utils/clients";
 import useNow from "@utils/useNow";
 
-import { Clients, decryptClients } from "../manfred/utils/clients";
-
 import ManfredChat from "../manfred/components/ManfredChat";
-import PasswordGate from "../manfred/components/PasswordGate";
+import PasswordGate from "../utils/PasswordGate";
 
 import ThemeProvider from "./components/ThemeProvider";
 
@@ -14,11 +13,6 @@ function Kryspi() {
   useTitle("Kryspinów");
 
   const [clients, setClients] = useState<Clients | null>(null);
-  const setDecryptedClients = async (key: CryptoKey) => {
-    const decryptedClients = await decryptClients(key);
-    setClients(decryptedClients);
-  };
-
   const now = useNow();
 
   if (clients === null) {
@@ -32,7 +26,7 @@ function Kryspi() {
             height: "85vh",
           }}
         >
-          <PasswordGate decryptData={setDecryptedClients} />
+          <PasswordGate setClients={setClients} />
         </div>
       </ThemeProvider>
     );

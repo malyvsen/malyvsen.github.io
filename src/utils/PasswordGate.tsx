@@ -1,12 +1,13 @@
 import { useState } from "react";
-
-import { decrypt, passwordToKey } from "@utils/encryption";
 import { TypeAnimation } from "react-type-animation";
 
+import Clients, { decryptClients } from "./clients";
+import { decrypt, passwordToKey } from "./encryption";
+
 function PasswordGate({
-  decryptData,
+  setClients,
 }: {
-  decryptData: (key: CryptoKey) => Promise<void>;
+  setClients: (clients: Clients) => void;
 }) {
   const [password, setPassword] = useState("");
   const [decryptionStatus, setDecryptionStatus] = useState<
@@ -31,7 +32,9 @@ function PasswordGate({
       setDecryptionStatus("failure");
       return;
     }
-    await decryptData(key);
+
+    const decryptedClients = await decryptClients(key);
+    setClients(decryptedClients);
   };
 
   return (

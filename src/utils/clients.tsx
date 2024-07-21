@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 import { decrypt } from "@utils/encryption";
 
-export interface Clients {
+export default interface Clients {
   openai: OpenAI;
 }
 
