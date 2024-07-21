@@ -16,7 +16,12 @@ export default function WeatherWidget() {
         {
           latitude: 50.05,
           longitude: 19.79,
-          daily: "apparent_temperature_max",
+          daily: [
+            "apparent_temperature_max",
+            "rain_sum",
+            "showers_sum",
+            "snowfall_sum",
+          ],
           timezone: "Europe/Warsaw",
           forecast_days: 14,
         }
@@ -54,6 +59,11 @@ export default function WeatherWidget() {
   const dailyMaxApparentTemperature = Array.from(
     dailyWeather.variables(0)!.valuesArray()!
   );
+  const dailyRainSum = Array.from(dailyWeather.variables(1)!.valuesArray()!);
+  const dailyShowersSum = Array.from(dailyWeather.variables(2)!.valuesArray()!);
+  const dailySnowfallSum = Array.from(
+    dailyWeather.variables(3)!.valuesArray()!
+  );
 
   return (
     <div
@@ -69,6 +79,8 @@ export default function WeatherWidget() {
           key={index}
           date={value}
           maxApparentTemperature={dailyMaxApparentTemperature[index]}
+          rainSumMilimeters={dailyRainSum[index] + dailyShowersSum[index]}
+          snowSumCentimeters={dailySnowfallSum[index]}
         />
       ))}
     </div>
