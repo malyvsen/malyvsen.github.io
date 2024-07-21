@@ -4,8 +4,6 @@ import { fetchWeatherApi } from "openmeteo";
 import OneDayWeather from "./OneDayWeather";
 
 export default function WeatherWidget() {
-  const forecastDays = 7;
-
   const {
     data: weatherResponses,
     isPending,
@@ -20,7 +18,7 @@ export default function WeatherWidget() {
           longitude: 19.79,
           daily: "apparent_temperature_max",
           timezone: "Europe/Warsaw",
-          forecast_days: forecastDays,
+          forecast_days: 14,
         }
       );
       return weather;
@@ -42,7 +40,7 @@ export default function WeatherWidget() {
   const dailyWeatherStartTimestamp = Number(dailyWeather.time()!);
   const dailyWeatherInterval = dailyWeather.interval()!;
 
-  const dailyDates = Array(forecastDays)
+  const dailyDates = Array(8)
     .fill(0)
     .map(
       (_, index) =>
