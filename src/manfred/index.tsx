@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useTitle } from "react-use";
 
 import { Clients, decryptClients } from "./utils/clients";
 
@@ -6,16 +7,13 @@ import ManfredChat from "./components/ManfredChat";
 import PasswordGate from "./components/PasswordGate";
 
 function Manfred() {
-  const [clients, setClients] = useState<Clients | null>(null);
+  useTitle("Manfred");
 
+  const [clients, setClients] = useState<Clients | null>(null);
   const setDecryptedClients = async (key: CryptoKey) => {
     const decryptedClients = await decryptClients(key);
     setClients(decryptedClients);
   };
-
-  useEffect(() => {
-    document.title = "Manfred";
-  }, []);
 
   return (
     <div

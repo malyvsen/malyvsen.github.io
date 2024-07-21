@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useTitle } from "react-use";
 
-import { encrypt, decrypt, passwordToKey } from "../utils/encryption";
+import { decrypt, encrypt, passwordToKey } from "../utils/encryption";
 
 function Szyfrownica() {
+  useTitle("Szyfrownica");
+
   const [password, setPassword] = useState("");
   const [data, setData] = useState("");
   const [encryptedData, setEncryptedData] = useState<Uint8Array | null>(null);
@@ -24,10 +27,6 @@ function Szyfrownica() {
     });
     setDecryptedData(decryptedData);
   };
-
-  useEffect(() => {
-    document.title = "Szyfrownica";
-  }, []);
 
   return (
     <>

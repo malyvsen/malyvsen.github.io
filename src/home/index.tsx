@@ -1,14 +1,12 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTitle } from "react-use";
 
 import MalyvsenAnimation from "./MalyvsenAnimation";
 
 import "./index.css";
 
 function Home() {
-  useEffect(() => {
-    document.title = "Malyvsen";
-  }, []);
+  useTitle("Malyvsen");
 
   return (
     <div

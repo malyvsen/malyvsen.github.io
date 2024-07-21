@@ -1,17 +1,15 @@
-import { useEffect } from "react";
+import { useTitle } from "react-use";
 
+import useScreenSize from "@utils/useScreenSize";
 import FaceCutout from "./FaceCutout";
 import Hello from "./Hello";
 import Links from "./Links";
-import useScreenSize from "@utils/useScreenSize";
 
 export default function Aktor() {
+  useTitle("Mikołaj Bocheński");
+
   const { width: screenWidth } = useScreenSize();
   const backgroundColor = "#ece0d7";
-
-  useEffect(() => {
-    document.title = "Mikołaj Bocheński";
-  }, []);
 
   if (screenWidth < 900) {
     return (

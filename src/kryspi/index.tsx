@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useTitle } from "react-use";
 
 import useNow from "@utils/useNow";
 
@@ -10,18 +11,15 @@ import PasswordGate from "../manfred/components/PasswordGate";
 import ThemeProvider from "./components/ThemeProvider";
 
 function Kryspi() {
+  useTitle("Kryspinów");
+
   const [clients, setClients] = useState<Clients | null>(null);
-
-  const now = useNow();
-
   const setDecryptedClients = async (key: CryptoKey) => {
     const decryptedClients = await decryptClients(key);
     setClients(decryptedClients);
   };
 
-  useEffect(() => {
-    document.title = "Kryspinów";
-  }, []);
+  const now = useNow();
 
   if (clients === null) {
     return (
