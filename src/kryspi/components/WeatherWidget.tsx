@@ -28,6 +28,7 @@ export default function WeatherWidget() {
       );
       return weather;
     },
+    refetchInterval: 1000 * 60 * 15,
   });
 
   if (isPending) {
