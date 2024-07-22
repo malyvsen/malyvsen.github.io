@@ -7,8 +7,8 @@ export default function Hello() {
         polsku, angielsku (dzieciństwo spędziłem w Kalifornii), niemiecku,
         holendersku, szwedzku i włosku. Mam doświadczenie przed kamerą i na
         scenie, również musicalowej. Skończyłem roczne studium aktorstwa
-        filmowego na Mulholland Academy w Amsterdamie, właśnie kończę pierwszy
-        rok Szkoły Wokalno-Aktorskiej w Krakowie.
+        filmowego na Mulholland Academy w Amsterdamie, a właśnie teraz -
+        pierwszy rok Szkoły Wokalno-Aktorskiej w Krakowie.
       </p>
     </>
   );
