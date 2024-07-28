@@ -19,7 +19,7 @@ export default async function canFollow({
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessageText },
     ],
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
     temperature: 0.0,
     response_format: { type: "json_object" },
   });
@@ -39,33 +39,13 @@ export default async function canFollow({
     return true;
   }
 
-  if (!("contradictory" in parsedResponse)) {
+  if (!("mustPick" in parsedResponse)) {
     return true;
   }
-  if (typeof parsedResponse.contradictory !== "boolean") {
+  if (typeof parsedResponse.mustPick !== "boolean") {
     return true;
   }
-  if (parsedResponse.contradictory) {
-    return false;
-  }
-
-  if (!("repetitive" in parsedResponse)) {
-    return true;
-  }
-  if (typeof parsedResponse.repetitive !== "boolean") {
-    return true;
-  }
-  if (parsedResponse.repetitive) {
-    return false;
-  }
-
-  if (!("soundNaturalTogether" in parsedResponse)) {
-    return true;
-  }
-  if (typeof parsedResponse.soundNaturalTogether !== "boolean") {
-    return true;
-  }
-  if (!parsedResponse.soundNaturalTogether) {
+  if (parsedResponse.mustPick) {
     return false;
   }
 
@@ -73,10 +53,7 @@ export default async function canFollow({
 }
 
 const systemPrompt = `
-Identify the relationship between the given messages. Respond with a JSON object with two keys:
-- contradictory: bool
-- repetitive: bool
-- soundNaturalTogether: bool - whether these messages will sound natural if they are sent by the same person, one after another
+Identify the relationship between the given messages. Respond with a JSON object with one key, mustPick: bool - whether these messages will sound natural if they are said by the same person, one after another, or whether one should be picked.
 
 # Example 1
 
@@ -89,7 +66,9 @@ Królowa Jadwiga miała 12 lat, gdy wyszła za mąż za Władysława Jagiełłę
 </message>
 
 Output:
-{"contradictory": false, "repetitive": false, "soundNaturalTogether": true}
+{"mustPick": false}
+
+Explanation: The messages don't contradict and are not repetitive. Only one of them is asking something, so the natural response to them will be to answer the question or acknowledge the facts.
 
 # Example 2
 
@@ -102,7 +81,9 @@ Królowa Jadwiga miała 12 lat, gdy wyszła za mąż za Władysława Jagiełłę
 </message>
 
 Output:
-{"contradictory": false, "repetitive": true, "soundNaturalTogether": false}
+{"mustPick": true}
+
+Explanation: The messages repeat the same information in a very obvious manner.
 
 # Example 3
 
@@ -115,5 +96,7 @@ Och, wiesz, jak to jest – sztuczna inteligencja nigdy nie ma złego dnia. A ty
 </message>
 
 Output:
-{"contradictory": false, "repetitive": false, "soundNaturalTogether": false}
+{"mustPick": true}
+
+Explanation: The latter messages sounds like it's the beginning of a monologue, not in the middle of it. What's more, both messages require a response, so the receiver is left not knowing which one to respond to.
 `.trim();
