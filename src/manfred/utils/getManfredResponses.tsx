@@ -39,7 +39,7 @@ export default async function* getManfredResponses({
     } else {
       const mustPickResponse = await mustPick({
         openai: clients.openai,
-        input: message.text,
+        input: messages[-1].text,
         possibleResponses: yieldedMessages.map((message) => message.text),
       });
       if (!mustPickResponse) {
