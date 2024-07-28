@@ -1,9 +1,9 @@
 import asCompleted from "@utils/asCompleted";
 import Clients from "@utils/clients";
 
+import canFollow from "./canFollow";
 import getOpenAiResponse from "./getOpenAiResponse";
 import Message from "./message";
-import mustPick from "./mustPick";
 
 export default async function* getManfredResponses({
   clients,
@@ -39,13 +39,20 @@ export default async function* getManfredResponses({
     if (yieldedMessages.length === 0) {
       yield message;
     } else {
-      const mustPickResponse = await mustPick({
+      const canResponsesFollow = await canFollow({
         openai: clients.openai,
-        input: messages[messages.length - 1].text,
-        possibleResponses: yieldedMessages.map((message) => message.text),
+        possibleResponses: [
+          ...yieldedMessages.map((message) => message.text),
+          message.text,
+        ],
       });
-      if (!mustPickResponse) {
+      if (canResponsesFollow) {
         yield message;
+      } else {
+        console.log(
+          "Discarding response which cannot follow previous ones",
+          message
+        );
       }
     }
     yieldedMessages.push(message);
