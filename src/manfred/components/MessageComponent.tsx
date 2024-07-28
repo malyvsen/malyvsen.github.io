@@ -1,4 +1,4 @@
-import { Message } from "../utils/chat";
+import Message from "../utils/message";
 
 import "./MessageComponent.css";
 

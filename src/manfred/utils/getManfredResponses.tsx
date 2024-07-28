@@ -1,26 +1,11 @@
 import asCompleted from "@utils/asCompleted";
 import Clients from "@utils/clients";
-import OpenAI from "openai";
 
-export class Message {
-  constructor(
-    public author: "user" | "assistant-sarcastic" | "assistant-main",
-    public text: string
-  ) {}
+import getOpenAiResponse from "./getOpenAiResponse";
+import Message from "./message";
+import mustPick from "./mustPick";
 
-  get openAiMessage(): OpenAI.Chat.ChatCompletionMessageParam {
-    return {
-      role: this.role,
-      content: this.text,
-    };
-  }
-
-  get role(): "user" | "assistant" {
-    return this.author === "user" ? "user" : "assistant";
-  }
-}
-
-export async function* getManfredResponses({
+export default async function* getManfredResponses({
   clients,
   messages,
 }: {
@@ -43,35 +28,26 @@ export async function* getManfredResponses({
     messages: messages.slice(-10),
   }).then((response) => new Message("assistant-main", response));
 
+  const yieldedMessages: Message[] = [];
+
   for await (const message of asCompleted([
     sarcasticResponsePromise,
     mainResponsePromise,
   ])) {
-    yield message;
+    if (yieldedMessages.length === 0) {
+      yield message;
+    } else {
+      const mustPickResponse = await mustPick({
+        openai: clients.openai,
+        input: message.text,
+        possibleResponses: yieldedMessages.map((message) => message.text),
+      });
+      if (!mustPickResponse) {
+        yield message;
+      }
+    }
+    yieldedMessages.push(message);
   }
-}
-
-export async function getOpenAiResponse({
-  openai,
-  systemPrompt,
-  messages,
-}: {
-  openai: OpenAI;
-  systemPrompt: string;
-  messages: Message[];
-}): Promise<string> {
-  const chatCompletion = await openai.chat.completions.create({
-    messages: [
-      { role: "system", content: systemPrompt },
-      ...messages.slice(-10).map((message) => message.openAiMessage),
-    ],
-    model: "gpt-4o",
-    temperature: 0.0,
-  });
-  if (chatCompletion.choices[0].message.content === null) {
-    throw new Error("OpenAI returned null message content");
-  }
-  return chatCompletion.choices[0].message.content;
 }
 
 const sarcasticPrompt = `
