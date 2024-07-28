@@ -12,26 +12,28 @@ export default async function* getManfredResponses({
   clients: Clients;
   messages: Message[];
 }): AsyncGenerator<Message> {
-  const sarcasticResponsePromise = getOpenAiResponse({
-    openai: clients.openai,
-    systemPrompt: sarcasticPrompt,
-    messages: messages.slice(-10),
-    modelName: "gpt-4o",
-  }).then((response) => new Message("assistant-sarcastic", response));
+  const messagePromises = [
+    getOpenAiResponse({
+      openai: clients.openai,
+      systemPrompt: mainPrompt,
+      messages: messages.slice(-10),
+      modelName: "gpt-4o",
+    }).then((response) => new Message("assistant-main", response)),
+  ];
 
-  const mainResponsePromise = getOpenAiResponse({
-    openai: clients.openai,
-    systemPrompt: mainPrompt,
-    messages: messages.slice(-10),
-    modelName: "gpt-4o",
-  }).then((response) => new Message("assistant-main", response));
-
+  const feelingSarcastic = Math.random() < 0.5;
+  if (feelingSarcastic) {
+    messagePromises.push(
+      getOpenAiResponse({
+        openai: clients.openai,
+        systemPrompt: sarcasticPrompt,
+        messages: messages.slice(-10),
+        modelName: "gpt-4o",
+      }).then((response) => new Message("assistant-sarcastic", response))
+    );
+  }
   const yieldedMessages: Message[] = [];
-
-  for await (const message of asCompleted([
-    sarcasticResponsePromise,
-    mainResponsePromise,
-  ])) {
+  for await (const message of asCompleted(messagePromises)) {
     if (yieldedMessages.length === 0) {
       yield message;
     } else {
