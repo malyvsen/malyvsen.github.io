@@ -2,8 +2,9 @@ import { useCallback, useState } from "react";
 
 import Clients from "@utils/clients";
 
-import { Message, getManfredResponse } from "../utils/chat";
-import useReader from "../utils/useReader";
+import { Message, getManfredResponses } from "../utils/chat";
+import textToSpeech from "../utils/textToSpeech";
+import useAudioPlayer from "../utils/useAudioPlayer";
 
 import MessageList from "./MessageList";
 import TextMessageInput from "./TextMessageInput";
@@ -14,29 +15,47 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
   const [interactionMode, setInteractionMode] = useState<"voice" | "text">(
     "text"
   );
-  const readText = useReader(clients.openai);
+  const playAudio = useAudioPlayer();
 
   const sendMessage = useCallback(
     async (messageText: string) => {
-      const messagesWithUser: Message[] = [
-        ...messages,
-        {
-          role: "user",
-          text: messageText,
-        },
-      ];
-      setMessages(messagesWithUser);
+      const extendedMessages: Message[] = [...messages];
+      extendedMessages.push(new Message("user", messageText));
+      setMessages([...extendedMessages]);
 
-      const manfredResponse = await getManfredResponse({
-        openai: clients.openai,
-        messages: messagesWithUser,
+      const responseGenerator = getManfredResponses({
+        clients,
+        messages: extendedMessages,
       });
-      setMessages([...messagesWithUser, manfredResponse]);
-      if (interactionMode === "voice") {
-        await readText(manfredResponse.text);
+
+      async function playAfter(previousPromise: Promise<void>, audio: Blob) {
+        await previousPromise;
+        await playAudio(audio);
+      }
+
+      let lastAudioPromise: Promise<void> | null = null;
+      for await (const response of responseGenerator) {
+        extendedMessages.push(response);
+        setMessages([...extendedMessages]);
+
+        if (interactionMode === "voice") {
+          const speech = await textToSpeech({
+            clients,
+            text: response.text,
+          });
+          if (lastAudioPromise === null) {
+            lastAudioPromise = playAudio(speech);
+          } else {
+            lastAudioPromise = playAfter(lastAudioPromise, speech);
+          }
+        }
+      }
+
+      if (lastAudioPromise !== null) {
+        await lastAudioPromise;
       }
     },
-    [clients, messages, interactionMode, readText]
+    [clients, messages, interactionMode, playAudio]
   );
 
   return (
