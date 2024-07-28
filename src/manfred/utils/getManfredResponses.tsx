@@ -3,6 +3,7 @@ import Clients from "@utils/clients";
 
 import canFollow from "./canFollow";
 import getOpenAiResponse from "./getOpenAiResponse";
+import goodComeback from "./goodComeback";
 import Message from "./message";
 
 export default async function* getManfredResponses({
@@ -12,28 +13,40 @@ export default async function* getManfredResponses({
   clients: Clients;
   messages: Message[];
 }): AsyncGenerator<Message> {
-  const messagePromises = [
-    getOpenAiResponse({
-      openai: clients.openai,
-      systemPrompt: mainPrompt,
-      messages: messages.slice(-10),
-      modelName: "gpt-4o",
-    }).then((response) => new Message("assistant-main", response)),
-  ];
+  const mainPromise = getOpenAiResponse({
+    openai: clients.openai,
+    systemPrompt: mainPrompt,
+    messages: messages.slice(-10),
+    modelName: "gpt-4o",
+  }).then((response) => new Message("assistant-main", response));
 
-  const feelingSarcastic = Math.random() < 0.5;
-  if (feelingSarcastic) {
-    messagePromises.push(
-      getOpenAiResponse({
-        openai: clients.openai,
-        systemPrompt: sarcasticPrompt,
-        messages: messages.slice(-10),
-        modelName: "gpt-4o",
-      }).then((response) => new Message("assistant-sarcastic", response))
-    );
-  }
+  const sarcasticPromise = getOpenAiResponse({
+    openai: clients.openai,
+    systemPrompt: sarcasticPrompt,
+    messages: messages.slice(-10),
+    modelName: "gpt-4o",
+  }).then(async (response) => {
+    const isGoodComeback = await goodComeback({
+      openai: clients.openai,
+      messages: messages.slice(-4),
+      comeback: response,
+    });
+    if (!isGoodComeback) {
+      console.log(
+        "Discarding sarcastic response because it's not a good comeback",
+        response
+      );
+      return undefined;
+    }
+    return new Message("assistant-sarcastic", response);
+  });
+
   const yieldedMessages: Message[] = [];
-  for await (const message of asCompleted(messagePromises)) {
+  for await (const message of asCompleted([mainPromise, sarcasticPromise])) {
+    if (message === undefined) {
+      continue;
+    }
+
     if (yieldedMessages.length === 0) {
       yield message;
     } else {
