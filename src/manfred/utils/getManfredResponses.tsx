@@ -20,12 +20,14 @@ export default async function* getManfredResponses({
         ["user", "assistant-sarcastic"].includes(message.author)
       )
       .slice(-10),
+    modelName: "gpt-4o",
   }).then((response) => new Message("assistant-sarcastic", response));
 
   const mainResponsePromise = getOpenAiResponse({
     openai: clients.openai,
     systemPrompt: mainPrompt,
     messages: messages.slice(-10),
+    modelName: "gpt-4o",
   }).then((response) => new Message("assistant-main", response));
 
   const yieldedMessages: Message[] = [];
@@ -39,7 +41,7 @@ export default async function* getManfredResponses({
     } else {
       const mustPickResponse = await mustPick({
         openai: clients.openai,
-        input: messages[-1].text,
+        input: messages[messages.length - 1].text,
         possibleResponses: yieldedMessages.map((message) => message.text),
       });
       if (!mustPickResponse) {
