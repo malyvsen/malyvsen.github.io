@@ -15,11 +15,7 @@ export default async function* getManfredResponses({
   const sarcasticResponsePromise = getOpenAiResponse({
     openai: clients.openai,
     systemPrompt: sarcasticPrompt,
-    messages: messages
-      .filter((message) =>
-        ["user", "assistant-sarcastic"].includes(message.author)
-      )
-      .slice(-10),
+    messages: messages.slice(-10),
     modelName: "gpt-4o",
   }).then((response) => new Message("assistant-sarcastic", response));
 
