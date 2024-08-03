@@ -29,32 +29,40 @@ function Szyfrownica() {
   };
 
   return (
-    <>
-      <h1>Szyfrownica</h1>
-      <form onSubmit={handleSubmit}>
-        <p>
-          Hasło:{" "}
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </p>
-        <p>
-          Dane:{" "}
-          <input
-            type="text"
-            value={data}
-            onChange={(e) => setData(e.target.value)}
-          />
-        </p>
-        <button type="submit" style={{ display: "none" }} />
-      </form>
-      <p>Zaszyfrowane dane:</p>
-      <pre>{encryptedData?.join(", ")}</pre>
-      <p>Rozszyfrowane dane: </p>
-      <pre>{decryptedData}</pre>
-    </>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <div style={{ width: "min(50%, 32em)" }}>
+        <h1>Szyfrownica</h1>
+        <form onSubmit={handleSubmit}>
+          <p>
+            Hasło:{" "}
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </p>
+          <p>
+            Dane:{" "}
+            <input
+              type="text"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+            />
+          </p>
+          <button type="submit" style={{ display: "none" }} />
+        </form>
+        <p>Zaszyfrowane dane:</p>
+        <p>{encryptedData?.join(", ")}</p>
+        <p>Rozszyfrowane dane: </p>
+        <p style={{ wordBreak: "break-all" }}>{decryptedData}</p>
+      </div>
+    </div>
   );
 }
 
