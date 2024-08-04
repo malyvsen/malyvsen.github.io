@@ -9,7 +9,7 @@ export default function Links({ style }: { style?: React.CSSProperties }) {
       }}
     >
       <p style={{ fontSize: "1.4em" }}>
-        <a href="https://www.facebook.com/malyvsen">Facebook</a>
+        <a href="https://www.instagram.com/malyvsen/">Instagram</a>
         <br />
         <a href="https://photos.app.goo.gl/yFrqRuZ5tNMAWF5MA">Galeria zdjęć</a>
         <br />
