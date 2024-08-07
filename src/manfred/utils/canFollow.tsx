@@ -68,4 +68,13 @@ Bywało lepiej. A ty, jak się trzymasz w tym świecie pełnym ludzi?
 
 Output:
 {"flowsNaturally": false} // the message sounds weirdly concatenated
+
+# Example 4
+
+Input:
+Oczywiście, bo kto by nie chciał znać tajemnic wszechświata, prawda?
+Okej. Skarpetki gubią się w praniu z kilku powodów: mogą utknąć w bębnie pralki, wpaść za uszczelkę, zostać w koszu na pranie lub po prostu zgubić się podczas przenoszenia.
+
+Output:
+{"flowsNaturally": true} // the message sounds like the user made a joke but still wanted to answer seriously
 `.trim();
