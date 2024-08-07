@@ -33,14 +33,18 @@ export default async function goodComeback({
   }
 
   const ratings = response.choices[0].message.parsed!;
-  const score = ratings.intelligence + ratings.humour * 2 + ratings.sarcasm;
+  const score =
+    0.7526595745 +
+    ratings.humour * -0.3005319149 +
+    ratings.sarcasm * 0.3085106383 +
+    ratings.subtlety * -0.1090425532;
 
   console.log(`Comeback score: ${score}`, ratings);
-  return score > 10;
+  return score > 0.5;
 }
 
 const Ratings = z.object({
-  intelligence: z.number(),
   humour: z.number(),
   sarcasm: z.number(),
+  subtlety: z.number(),
 });
