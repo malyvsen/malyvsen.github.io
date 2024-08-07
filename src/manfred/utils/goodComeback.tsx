@@ -1,4 +1,6 @@
 import OpenAI from "openai";
+import { zodResponseFormat } from "openai/helpers/zod";
+import { z } from "zod";
 
 import Message from "./message";
 
@@ -11,45 +13,34 @@ export default async function goodComeback({
   messages: Message[];
   comeback: string;
 }): Promise<boolean> {
-  const response = await openai.chat.completions.create({
+  const userMessages = messages.filter((message) => message.role === "user");
+  const lastUserMessage = userMessages[userMessages.length - 1];
+
+  const response = await openai.beta.chat.completions.parse({
     messages: [
-      {
-        role: "system",
-        content:
-          "Categorize your last response. Respond with a JSON object containing one boolean called goodComeback.",
-      },
-      ...messages.slice(-4).map((message) => message.openAiMessage),
-      { role: "assistant", content: comeback },
+      { role: "system", content: "Rate the last message on a 1-5 scale." },
+      { role: "assistant", content: lastUserMessage.text }, // pretend the roles were swapped - the LLM gets this better
+      { role: "user", content: comeback },
     ],
     model: "gpt-4o-mini",
     temperature: 0.0,
-    response_format: { type: "json_object" },
+    response_format: zodResponseFormat(Ratings, "ratings"),
+    max_tokens: 32,
   });
 
-  if (response.choices[0].message.content === null) {
-    throw new Error("OpenAI returned null message content");
+  if (response.choices[0].message.refusal !== null) {
+    return true; // a comeback which triggers safety filters is probably good
   }
 
-  let parsedResponse;
-  try {
-    parsedResponse = JSON.parse(response.choices[0].message.content);
-  } catch (e) {
-    return true;
-  }
+  const ratings = response.choices[0].message.parsed!;
+  const score = ratings.intelligence + ratings.humour * 2 + ratings.sarcasm;
 
-  if (typeof parsedResponse !== "object" || parsedResponse === null) {
-    return true;
-  }
-
-  if (!("goodComeback" in parsedResponse)) {
-    return true;
-  }
-  if (typeof parsedResponse.goodComeback !== "boolean") {
-    return true;
-  }
-  if (parsedResponse.goodComeback) {
-    return true;
-  }
-
-  return false;
+  console.log(`Comeback score: ${score}`, ratings);
+  return score > 10;
 }
+
+const Ratings = z.object({
+  intelligence: z.number(),
+  humour: z.number(),
+  sarcasm: z.number(),
+});
