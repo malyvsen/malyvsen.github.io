@@ -1,4 +1,3 @@
-import asCompleted from "@utils/asCompleted";
 import Clients from "@utils/clients";
 
 import canFollow from "./canFollow";
@@ -25,48 +24,47 @@ export default async function* getManfredResponses({
     systemPrompt: sarcasticPrompt,
     messages: messages.slice(-10),
     modelName: "gpt-4o",
-  }).then(async (response) => {
-    const isGoodComeback = await goodComeback({
-      openai: clients.openai,
-      messages: messages.slice(-4),
-      comeback: response,
-    });
-    if (!isGoodComeback) {
-      console.log(
-        "Discarding sarcastic response because it's not a good comeback",
-        response
-      );
-      return undefined;
-    }
-    return new Message("assistant-sarcastic", response);
-  });
+  }).then((response) => new Message("assistant-sarcastic", response));
 
   const yieldedMessages: Message[] = [];
-  for await (const message of asCompleted([mainPromise, sarcasticPromise])) {
-    if (message === undefined) {
-      continue;
-    }
 
-    if (yieldedMessages.length === 0) {
-      yield message;
+  const sarcasticResponse = await sarcasticPromise;
+  const isGoodComeback = await goodComeback({
+    openai: clients.openai,
+    messages: messages.slice(-4),
+    comeback: sarcasticResponse.text,
+  });
+  if (isGoodComeback) {
+    yield sarcasticResponse;
+    yieldedMessages.push(sarcasticResponse);
+  } else {
+    console.log(
+      "Discarding sarcastic response because it's not a good comeback",
+      sarcasticResponse
+    );
+  }
+
+  const mainResponse = await mainPromise;
+  if (yieldedMessages.length > 0) {
+    const canResponsesFollow = await canFollow({
+      openai: clients.openai,
+      possibleResponses: [
+        ...yieldedMessages.map((message) => message.text),
+        mainResponse.text,
+      ],
+    });
+    if (canResponsesFollow) {
+      yield mainResponse;
+      yieldedMessages.push(mainResponse);
     } else {
-      const canResponsesFollow = await canFollow({
-        openai: clients.openai,
-        possibleResponses: [
-          ...yieldedMessages.map((message) => message.text),
-          message.text,
-        ],
-      });
-      if (canResponsesFollow) {
-        yield message;
-      } else {
-        console.log(
-          "Discarding response which cannot follow previous ones",
-          message
-        );
-      }
+      console.log(
+        "Discarding response which cannot follow previous ones",
+        mainResponse
+      );
     }
-    yieldedMessages.push(message);
+  } else {
+    yield mainResponse;
+    yieldedMessages.push(mainResponse);
   }
 }
 
