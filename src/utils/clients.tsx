@@ -1,25 +1,44 @@
+import Groq from "groq-sdk";
 import OpenAI from "openai";
 
 import { decrypt } from "@utils/encryption";
 
 export default interface Clients {
+  groq: Groq;
   openai: OpenAI;
 }
 
 export async function decryptClients(key: CryptoKey) {
-  const decryptedOpenAIKey = await decrypt({
+  const groqKey = await decrypt({
+    key,
+    encryptedData: encryptedKeys.groq,
+  });
+
+  const openaiKey = await decrypt({
     key,
     encryptedData: encryptedKeys.openai,
   });
+
   return {
+    groq: new Groq({
+      dangerouslyAllowBrowser: true,
+      apiKey: groqKey,
+    }),
     openai: new OpenAI({
       dangerouslyAllowBrowser: true,
-      apiKey: decryptedOpenAIKey,
+      apiKey: openaiKey,
     }),
   };
 }
 
 const encryptedKeys = {
+  groq: new Uint8Array([
+    185, 49, 77, 231, 222, 82, 206, 134, 132, 50, 123, 100, 200, 242, 71, 107,
+    95, 111, 4, 10, 198, 112, 59, 248, 14, 249, 236, 63, 80, 219, 236, 83, 97,
+    198, 63, 114, 111, 202, 8, 44, 168, 187, 180, 62, 93, 195, 213, 154, 244,
+    58, 253, 105, 110, 129, 29, 218, 171, 21, 37, 40, 67, 170, 65, 208, 52, 152,
+    163, 183, 198, 168, 28, 128,
+  ]),
   openai: new Uint8Array([
     173, 41, 11, 200, 255, 121, 157, 249, 134, 26, 25, 68, 170, 250, 83, 25, 65,
     71, 0, 45, 212, 116, 34, 187, 9, 134, 241, 52, 127, 139, 152, 85, 2, 141,

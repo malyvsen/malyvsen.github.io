@@ -14,6 +14,9 @@ importers:
       daynight:
         specifier: ^3.3.1
         version: 3.3.1
+      groq-sdk:
+        specifier: ^0.5.0
+        version: 0.5.0
       openai:
         specifier: ^4.40.2
         version: 4.40.2
@@ -827,6 +830,9 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+
+  groq-sdk@0.5.0:
+    resolution: {integrity: sha512-RVmhW7qZ+XZoy5fIuSdx/LGQJONpL8MHgZEW7dFwTdgkzStub2XQx6OKv28CHogijdwH41J+Npj/z2jBPu3vmw==}
 
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
@@ -2045,6 +2051,19 @@ snapshots:
       slash: 3.0.0
 
   graphemer@1.4.0: {}
+
+  groq-sdk@0.5.0:
+    dependencies:
+      '@types/node': 18.19.31
+      '@types/node-fetch': 2.6.11
+      abort-controller: 3.0.0
+      agentkeepalive: 4.5.0
+      form-data-encoder: 1.7.2
+      formdata-node: 4.4.1
+      node-fetch: 2.7.0
+      web-streams-polyfill: 3.3.3
+    transitivePeerDependencies:
+      - encoding
 
   has-flag@4.0.0: {}
 

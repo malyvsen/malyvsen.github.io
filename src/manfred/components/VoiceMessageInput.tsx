@@ -1,15 +1,17 @@
+import Groq from "groq-sdk";
 import { useEffect, useRef } from "react";
 import { useAudioRecorder } from "react-audio-voice-recorder";
-import OpenAI from "openai";
+
+import speechToText from "../utils/speechToText";
 
 import "./MessageInput.css";
 
 export default function VoiceMessageInput({
-  sendMessage: sendMessage,
-  openaiClient,
+  sendMessage,
+  groq,
 }: {
   sendMessage: (message: string) => Promise<void>;
-  openaiClient: OpenAI;
+  groq: Groq;
 }) {
   const { startRecording, stopRecording, recordingBlob, isRecording } =
     useAudioRecorder();
@@ -51,24 +53,14 @@ export default function VoiceMessageInput({
       }
       oldRecordingBlob.current = recordingBlob;
 
-      const recordingFile = new File(
-        [recordingBlob],
-        "recording." + recordingBlob.type.split("/")[1].split(";")[0],
-        {
-          type: recordingBlob.type,
-        }
-      );
-      const transcription = await openaiClient.audio.transcriptions.create({
-        file: recordingFile,
-        model: "whisper-1",
-        language: "pl",
-        prompt: "Manfred",
+      const transcription = await speechToText({
+        groq: groq,
+        audioBlob: recordingBlob,
       });
-
-      sendMessage(transcription.text);
+      sendMessage(transcription);
     };
     sendTranscription();
-  }, [sendMessage, openaiClient, recordingBlob]);
+  }, [sendMessage, groq, recordingBlob]);
 
   return (
     <div className="message-input-container">

@@ -83,10 +83,7 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
       {interactionMode === "text" ? (
         <TextMessageInput sendMessage={sendMessage} />
       ) : (
-        <VoiceMessageInput
-          sendMessage={sendMessage}
-          openaiClient={clients.openai}
-        />
+        <VoiceMessageInput sendMessage={sendMessage} groq={clients.groq} />
       )}
     </div>
   );
