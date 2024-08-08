@@ -11,9 +11,9 @@ export default async function getOpenAiResponse({
   openai: OpenAI;
   systemPrompt: string;
   messages: Message[];
-  modelName: "gpt-4o" | "gpt-4o-mini";
+  modelName: "gpt-4o-2024-05-13" | "gpt-4o-mini";
 }): Promise<string> {
-  const chatCompletion = await openai.chat.completions.create({
+  const chatCompletion = await openai.beta.chat.completions.parse({
     messages: [
       { role: "system", content: systemPrompt },
       ...messages.slice(-10).map((message) => message.openAiMessage),
