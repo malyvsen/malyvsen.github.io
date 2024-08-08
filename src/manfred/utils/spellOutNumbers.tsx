@@ -16,7 +16,7 @@ export default async function spellOutNumbers({
   const spelledOutText = await getOpenAiResponse({
     openai: clients.openai,
     systemPrompt:
-      "Repeat the given text, but spell out numbers, if there are any.",
+      "Powtórz podany tekst, ale wyraź liczby w formie słownej, jeśli jakieś się pojawiają.",
     messages: [new Message("user", text)],
     modelName: "gpt-4o-mini",
   });
