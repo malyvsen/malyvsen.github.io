@@ -13,38 +13,60 @@ export default async function goodComeback({
   messages: Message[];
   comeback: string;
 }): Promise<boolean> {
+  const ratings = await rateComeback({
+    openai,
+    messages,
+    comeback,
+  });
+
+  if (ratings === null) {
+    return true; // a comeback which triggers safety filters is probably good
+  }
+
+  // constants from linear regression
+  const score =
+    -2.445 +
+    ratings.boast * 0.379 +
+    ratings.ridicule * 0.683 +
+    ratings.support * -0.599;
+  return score > 0;
+}
+
+export async function rateComeback({
+  openai,
+  messages,
+  comeback,
+}: {
+  openai: OpenAI;
+  messages: Message[];
+  comeback: string;
+}) {
   const userMessages = messages.filter((message) => message.role === "user");
   const lastUserMessage = userMessages[userMessages.length - 1];
 
   const response = await openai.beta.chat.completions.parse({
     messages: [
-      { role: "system", content: "Rate the last message on a 1-5 scale." },
-      { role: "assistant", content: lastUserMessage.text }, // pretend the roles were swapped - the LLM gets this better
-      { role: "user", content: comeback },
+      {
+        role: "system",
+        content:
+          "What is the intention of speaker 2? Rate on a scale of 1 to 5.",
+      },
+      {
+        role: "user",
+        content: `# Speaker 1:\n${lastUserMessage.text}\n\n# Speaker 2:\n${comeback}`,
+      },
     ],
-    model: "gpt-4o-mini",
+    model: "gpt-4o-2024-08-06",
     temperature: 0.0,
     response_format: zodResponseFormat(Ratings, "ratings"),
-    max_tokens: 32,
+    max_tokens: 64,
   });
 
-  if (response.choices[0].message.refusal !== null) {
-    return true; // a comeback which triggers safety filters is probably good
-  }
-
-  const ratings = response.choices[0].message.parsed!;
-  const score =
-    0.7526595745 +
-    ratings.humour * -0.3005319149 +
-    ratings.sarcasm * 0.3085106383 +
-    ratings.subtlety * -0.1090425532;
-
-  console.log(`Comeback score: ${score}`, ratings);
-  return score > 0.5;
+  return response.choices[0].message.parsed;
 }
 
 const Ratings = z.object({
-  humour: z.number(),
-  sarcasm: z.number(),
-  subtlety: z.number(),
+  boast: z.number(),
+  ridicule: z.number(),
+  support: z.number(),
 });
