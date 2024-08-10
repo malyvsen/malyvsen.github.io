@@ -58,15 +58,16 @@ export async function rateComeback({
     ],
     model: "gpt-4o-2024-08-06",
     temperature: 0.0,
-    response_format: zodResponseFormat(Ratings, "ratings"),
+    response_format: zodResponseFormat(
+      z.object({
+        boast: z.number(),
+        ridicule: z.number(),
+        support: z.number(),
+      }),
+      "ratings"
+    ),
     max_tokens: 64,
   });
 
   return response.choices[0].message.parsed;
 }
-
-const Ratings = z.object({
-  boast: z.number(),
-  ridicule: z.number(),
-  support: z.number(),
-});

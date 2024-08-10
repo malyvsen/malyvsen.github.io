@@ -23,7 +23,10 @@ export default async function canFollow({
     ],
     model: "gpt-4o-mini",
     temperature: 0.0,
-    response_format: zodResponseFormat(Judgement, "judgement"),
+    response_format: zodResponseFormat(
+      z.object({ flowsNaturally: z.boolean() }),
+      "judgement"
+    ),
     max_tokens: 32,
   });
 
@@ -34,10 +37,6 @@ export default async function canFollow({
   const relationship = response.choices[0].message.parsed!;
   return relationship.flowsNaturally;
 }
-
-const Judgement = z.object({
-  flowsNaturally: z.boolean(),
-});
 
 const systemPrompt = `
 Determine if the user's message flows naturally.
