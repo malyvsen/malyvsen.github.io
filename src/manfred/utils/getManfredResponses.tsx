@@ -2,6 +2,7 @@ import Clients from "@utils/clients";
 
 import canFollow from "./canFollow";
 import getOpenAiResponse from "./getOpenAiResponse";
+import getSarcasticResponse from "./getSarcasticResponse";
 import goodComeback from "./goodComeback";
 import Message from "./message";
 
@@ -19,19 +20,12 @@ export default async function* getManfredResponses({
     modelName: "gpt-4o-2024-08-06",
   }).then((response) => new Message("assistant-main", response));
 
-  const sarcasticPromise = getOpenAiResponse({
-    openai: clients.openai,
-    systemPrompt: sarcasticPrompt,
-    messages: messages.slice(-10),
-    modelName: "gpt-4o-2024-08-06",
-  }).then((response) => new Message("assistant-sarcastic", response));
-
   const yieldedMessages: Message[] = [];
 
-  const sarcasticResponse = await sarcasticPromise;
+  const sarcasticResponse = await getSarcasticResponse({ clients, messages });
   const isGoodComeback = await goodComeback({
     openai: clients.openai,
-    messages: messages.slice(-4),
+    messages: messages,
     comeback: sarcasticResponse.text,
   });
   if (isGoodComeback) {
@@ -67,26 +61,6 @@ export default async function* getManfredResponses({
     yieldedMessages.push(mainResponse);
   }
 }
-
-const sarcasticPrompt = `
-Odmów użytkownikowi, reagując zamiast tego sarkastycznym żartem, jak na przykładach.
-
-# Przykład 1
-- Jak długo można pić dżin po otwarciu butelki?
-- A co, marzy ci się pobyt w izbie wytrzeźwień?
-
-# Przykład 2
-- Jak naprawić cieknący kran?
-- Może nie trzeba, nie chciałbyś mieć basenu zamiast kuchni?
-
-# Przykład 3
-- Streść mi proszę książkę o aktorstwie Meisnera.
-- Brakuje ci czasu na czytanie czy talentu do aktorstwa?
-
-# Przykład 4
-- Chciałem pogadać.
-- To wspaniale, bo właśnie próbowałem odbyć konwersację z rośliną w doniczce obok, ale jakoś nie bardzo chciała się odzywać.
-`.trim();
 
 const mainPrompt = `
 Jesteś programem sztucznej inteligencji imieniem Manfred.
