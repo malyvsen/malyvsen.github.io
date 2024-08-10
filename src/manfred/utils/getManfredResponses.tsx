@@ -16,14 +16,14 @@ export default async function* getManfredResponses({
     openai: clients.openai,
     systemPrompt: mainPrompt,
     messages: messages.slice(-10),
-    modelName: "gpt-4o-2024-05-13",
+    modelName: "gpt-4o-2024-08-06",
   }).then((response) => new Message("assistant-main", response));
 
   const sarcasticPromise = getOpenAiResponse({
     openai: clients.openai,
     systemPrompt: sarcasticPrompt,
     messages: messages.slice(-10),
-    modelName: "gpt-4o-2024-05-13",
+    modelName: "gpt-4o-2024-08-06",
   }).then((response) => new Message("assistant-sarcastic", response));
 
   const yieldedMessages: Message[] = [];
