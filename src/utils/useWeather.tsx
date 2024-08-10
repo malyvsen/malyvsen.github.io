@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchWeatherApi } from "openmeteo";
 
-import Weather, { HourlyWeather } from "./weather";
+import { HourlyWeather } from "./weather";
+import WeatherCode from "./weatherCode";
 
 export default function useWeather(): {
   hourlyWeather: HourlyWeather[] | undefined;
@@ -35,7 +36,6 @@ export default function useWeather(): {
   });
 
   if (isPending || error) {
-    console.log("early return");
     return { hourlyWeather: undefined, isPending, error };
   }
 
@@ -60,22 +60,20 @@ export default function useWeather(): {
   const rains = Array.from(hourlyData.variables(2)!.valuesArray()!);
   const showers = Array.from(hourlyData.variables(3)!.valuesArray()!);
   const snowfalls = Array.from(hourlyData.variables(4)!.valuesArray()!);
-  const weatherCodes = Array.from(hourlyData.variables(5)!.valuesArray()!);
+  const numericCodes = Array.from(hourlyData.variables(5)!.valuesArray()!);
   const cloudCovers = Array.from(hourlyData.variables(6)!.valuesArray()!);
 
   const hourlyWeather = Array.from({ length: numDataPoints }).map(
     (_, index) =>
       new HourlyWeather(
         endHours[index],
-        new Weather(
-          apparentTemperatures[index],
-          precipitationProbabilities[index],
-          rains[index],
-          showers[index],
-          snowfalls[index],
-          weatherCodes[index],
-          cloudCovers[index]
-        )
+        apparentTemperatures[index],
+        precipitationProbabilities[index],
+        rains[index],
+        showers[index],
+        snowfalls[index],
+        new WeatherCode(numericCodes[index]),
+        cloudCovers[index]
       )
   );
 

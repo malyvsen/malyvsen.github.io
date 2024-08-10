@@ -2,6 +2,7 @@ import { formatDate } from "@utils/formatTime";
 import useNow from "@utils/useNow";
 import useWeather from "@utils/useWeather";
 import { HourlyWeather } from "@utils/weather";
+import WeatherCode from "@utils/weatherCode";
 
 import "./OneDayWeather.css";
 
@@ -71,7 +72,7 @@ function getMaxApparentTemperature(
     date,
     new Date(date.getTime() + 1000 * 60 * 60 * 24)
   )
-    .map((hourlyWeather) => hourlyWeather.weather.apparentTemperature)
+    .map((hourlyWeather) => hourlyWeather.apparentTemperature)
     .reduce((max, current) => Math.max(max, current), 0);
 }
 
@@ -90,36 +91,57 @@ function getJointWeatherName(
 
   const nextDayStart = new Date(date.getTime() + 1000 * 60 * 60 * 24);
 
-  const worstMorning = HourlyWeather.worst(
-    HourlyWeather.inRange(hourlyWeather, morningStart, afternoonStart)
-  );
-  const worstAfternoon = HourlyWeather.worst(
-    HourlyWeather.inRange(hourlyWeather, afternoonStart, eveningStart)
-  );
-  const worstEvening = HourlyWeather.worst(
-    HourlyWeather.inRange(hourlyWeather, eveningStart, nextDayStart)
-  );
+  const morningCodes = HourlyWeather.inRange(
+    hourlyWeather,
+    morningStart,
+    afternoonStart
+  ).map((weather) => weather.code);
+  const morningCode = WeatherCode.aggregate(morningCodes);
 
-  const uniqueNames = new Set([
-    worstMorning.weather.name,
-    worstAfternoon.weather.name,
-    worstEvening.weather.name,
+  const afternoonCodes = HourlyWeather.inRange(
+    hourlyWeather,
+    afternoonStart,
+    eveningStart
+  ).map((weather) => weather.code);
+  const afternoonCode = WeatherCode.aggregate(afternoonCodes);
+
+  const eveningCodes = HourlyWeather.inRange(
+    hourlyWeather,
+    eveningStart,
+    nextDayStart
+  ).map((weather) => weather.code);
+  const eveningCode = WeatherCode.aggregate(eveningCodes);
+
+  const uniqueGroups = new Set([
+    morningCode.group,
+    afternoonCode.group,
+    eveningCode.group,
   ]);
 
-  if (uniqueNames.size === 1) {
-    return worstMorning.weather.name;
+  if (uniqueGroups.size === 1) {
+    return morningCode.name;
   }
 
-  if (uniqueNames.size === 2) {
-    if (worstMorning.weather.name === worstAfternoon.weather.name) {
-      return `${worstMorning.weather.name}, wieczorem ${worstEvening.weather.name}`;
+  if (uniqueGroups.size === 2) {
+    if (morningCode.group === afternoonCode.group) {
+      const groupedCode = WeatherCode.aggregate(
+        Array.prototype.concat(morningCodes, afternoonCodes)
+      );
+      return `${groupedCode.name}, wieczorem ${eveningCode.name}`;
     }
-    if (worstMorning.weather.name === worstEvening.weather.name) {
-      return `${worstMorning.weather.name}, po południu ${worstAfternoon.weather.name}`;
+    if (morningCode.group === eveningCode.group) {
+      const groupedCode = WeatherCode.aggregate(
+        Array.prototype.concat(morningCodes, eveningCodes)
+      );
+      return `${groupedCode.name}, po południu ${afternoonCode.name}`;
     }
-    return `${worstAfternoon.weather.name}, rano ${worstMorning.weather.name}`;
+    const groupedCode = WeatherCode.aggregate(
+      Array.prototype.concat(afternoonCodes, eveningCode)
+    );
+    return `${groupedCode.name}, rano ${morningCode.name}`;
   }
 
-  return HourlyWeather.worst([worstMorning, worstAfternoon, worstEvening])
-    .weather.name;
+  return WeatherCode.aggregate(
+    Array.prototype.concat(morningCodes, afternoonCodes, eveningCodes)
+  ).name;
 }
