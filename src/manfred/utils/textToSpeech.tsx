@@ -14,7 +14,7 @@ export default async function textToSpeech({
     model: "tts-1",
     voice: "echo",
     input: spelledOutText,
-    speed: 1.25,
+    speed: 1.125,
   });
   const audioBlob = await response.blob();
   return audioBlob;
