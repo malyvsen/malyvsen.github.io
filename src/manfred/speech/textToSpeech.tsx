@@ -1,6 +1,6 @@
 import Clients from "@utils/clients";
 
-import spellOutNumbers from "./spellOutNumbers";
+import preprocessText from "./preprocessText";
 
 export default async function textToSpeech({
   clients,
@@ -9,7 +9,7 @@ export default async function textToSpeech({
   clients: Clients;
   text: string;
 }): Promise<Blob> {
-  const spelledOutText = await spellOutNumbers({ clients, text });
+  const spelledOutText = await preprocessText({ clients, text });
   const response = await clients.openai.audio.speech.create({
     model: "tts-1",
     voice: "echo",
