@@ -1,7 +1,7 @@
 import Clients from "@utils/clients";
 
-import getOpenAiResponse from "./getOpenAiResponse";
-import Message from "./message";
+import getOpenAiResponse from "../ai/getOpenAiResponse";
+import Message from "../ai/message";
 
 /**
  * Spells out any numbers in the given text.

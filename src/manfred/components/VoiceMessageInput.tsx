@@ -2,7 +2,7 @@ import Groq from "groq-sdk";
 import { useEffect, useRef } from "react";
 import { useAudioRecorder } from "react-audio-voice-recorder";
 
-import speechToText from "../utils/speechToText";
+import speechToText from "../speech/speechToText";
 
 import "./MessageInput.css";
 

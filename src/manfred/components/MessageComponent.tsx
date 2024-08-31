@@ -1,4 +1,4 @@
-import Message from "../utils/message";
+import Message from "../ai/message";
 
 import "./MessageComponent.css";
 

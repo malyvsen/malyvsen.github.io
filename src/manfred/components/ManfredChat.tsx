@@ -2,10 +2,11 @@ import { useCallback, useState } from "react";
 
 import Clients from "@utils/clients";
 
-import getManfredResponses from "../utils/getManfredResponses";
-import Message from "../utils/message";
-import textToSpeech from "../utils/textToSpeech";
-import useAudioPlayer from "../utils/useAudioPlayer";
+import getManfredResponses from "../ai/getManfredResponses";
+import Message from "../ai/message";
+
+import textToSpeech from "../speech/textToSpeech";
+import useAudioPlayer from "../speech/useAudioPlayer";
 
 import MessageList from "./MessageList";
 import TextMessageInput from "./TextMessageInput";

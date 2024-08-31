@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 
-import Message from "../utils/message";
+import Message from "../ai/message";
 
 import MessageComponent from "./MessageComponent";
 
