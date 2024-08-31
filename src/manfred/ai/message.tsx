@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 export default class Message {
   constructor(
-    public author: "user" | "assistant-sarcastic" | "assistant-main",
+    public author: "user" | "assistant-main" | "assistant-loading",
     public text: string
   ) {}
 
