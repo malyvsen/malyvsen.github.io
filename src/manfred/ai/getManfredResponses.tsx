@@ -13,7 +13,7 @@ export default async function* getManfredResponses({
   messages: Message[];
 }): AsyncGenerator<Message> {
   const expectedResponseLength = await getExpectedResponseLength({
-    openai: clients.openai,
+    clients,
     messages,
   });
   console.log(`Expected response length: ${expectedResponseLength}`);

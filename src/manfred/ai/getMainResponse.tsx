@@ -1,7 +1,7 @@
 import Clients from "@utils/clients";
 
 import getOpenAiResponse from "./getOpenAiResponse";
-import Message from "./message";
+import Message, { LoadingMessage, MainMessage } from "./message";
 
 export default async function getMainResponse({
   clients,
@@ -11,9 +11,9 @@ export default async function getMainResponse({
   clients: Clients;
   messages: Message[];
   expectedResponseLength: "short" | "medium" | "long";
-}): Promise<Message> {
+}): Promise<MainMessage> {
   const visibleMessages = messages
-    .filter((message) => ["user", "assistant-main"].includes(message.role))
+    .filter((message) => !(message instanceof LoadingMessage))
     .slice(-10);
 
   const response = await getOpenAiResponse({
@@ -26,7 +26,7 @@ export default async function getMainResponse({
     messages: visibleMessages,
     modelName: "gpt-4o-2024-08-06",
   });
-  return new Message("assistant-main", response);
+  return new MainMessage(response, expectedResponseLength);
 }
 
 const manfredInfo = `

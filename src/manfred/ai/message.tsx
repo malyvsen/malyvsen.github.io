@@ -1,19 +1,24 @@
 import OpenAI from "openai";
 
 export default class Message {
-  constructor(
-    public author: "user" | "assistant-main" | "assistant-loading",
-    public text: string
-  ) {}
+  constructor(public author: "user" | "assistant", public text: string) {}
 
   get openAiMessage(): OpenAI.Chat.ChatCompletionMessageParam {
     return {
-      role: this.role,
+      role: this.author,
       content: this.text,
     };
   }
+}
 
-  get role(): "user" | "assistant" {
-    return this.author === "user" ? "user" : "assistant";
+export class LoadingMessage extends Message {
+  constructor(text: string) {
+    super("assistant", text);
+  }
+}
+
+export class MainMessage extends Message {
+  constructor(text: string, public length: "short" | "medium" | "long") {
+    super("assistant", text);
   }
 }

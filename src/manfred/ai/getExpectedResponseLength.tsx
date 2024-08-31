@@ -1,21 +1,21 @@
-import OpenAI from "openai";
+import Clients from "@utils/clients";
+
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
-
-import Message from "./message";
+import Message, { LoadingMessage } from "./message";
 
 export default async function getExpectedResponseLength({
-  openai,
+  clients,
   messages,
 }: {
-  openai: OpenAI;
+  clients: Clients;
   messages: Message[];
 }): Promise<"short" | "medium" | "long"> {
-  const visibleMessages = messages.filter((message) =>
-    ["user", "assistant-main"].includes(message.role)
-  );
+  const visibleMessages = messages
+    .filter((message) => !(message instanceof LoadingMessage))
+    .slice(-5);
 
-  const response = await openai.beta.chat.completions.parse({
+  const response = await clients.openai.beta.chat.completions.parse({
     messages: [
       {
         role: "system",

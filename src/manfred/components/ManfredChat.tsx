@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import Clients from "@utils/clients";
 
 import getManfredResponses from "../ai/getManfredResponses";
-import Message from "../ai/message";
+import Message, { MainMessage } from "../ai/message";
 
 import textToSpeech from "../speech/textToSpeech";
 import useAudioPlayer from "../speech/useAudioPlayer";
@@ -36,19 +36,24 @@ export default function ManfredChat({ clients }: { clients: Clients }) {
       }
 
       let lastAudioPromise: Promise<void> | null = null;
+      async function scheduleSpeech(text: string) {
+        const speech = await textToSpeech({ clients, text });
+        if (lastAudioPromise === null) {
+          lastAudioPromise = playAudio(speech);
+        } else {
+          lastAudioPromise = playAfter(lastAudioPromise, speech);
+        }
+      }
+
       for await (const response of responseGenerator) {
         extendedMessages.push(response);
         setMessages([...extendedMessages]);
 
         if (interactionMode === "voice") {
-          const speech = await textToSpeech({
-            clients,
-            text: response.text,
-          });
-          if (lastAudioPromise === null) {
-            lastAudioPromise = playAudio(speech);
-          } else {
-            lastAudioPromise = playAfter(lastAudioPromise, speech);
+          const isLongMessage =
+            response instanceof MainMessage && response.length === "long";
+          if (!isLongMessage) {
+            scheduleSpeech(response.text);
           }
         }
       }
