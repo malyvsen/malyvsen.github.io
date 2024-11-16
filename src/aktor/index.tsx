@@ -1,6 +1,5 @@
-import { useTitle } from "react-use";
+import { useMedia, useTitle } from "react-use";
 
-import useScreenSize from "@utils/useScreenSize";
 import FaceCutout from "./FaceCutout";
 import Hello from "./Hello";
 import Links from "./Links";
@@ -8,10 +7,10 @@ import Links from "./Links";
 export default function Aktor() {
   useTitle("Mikołaj Bocheński");
 
-  const { width: screenWidth } = useScreenSize();
+  const isWideScreen = useMedia("(min-width: 900px)");
   const backgroundColor = "#ece0d7";
 
-  if (screenWidth < 900) {
+  if (!isWideScreen) {
     return (
       <div
         style={{
