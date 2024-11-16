@@ -19,9 +19,7 @@ export default function Footer() {
         years old with the help of a fun little piece entitled “A noob’s guide
         to virus making” (I didn’t know what “noob” meant anyway, and I wanted
         to hack the school computer). It tends to impress people that I worked
-        at Microsoft, but I honestly like startups way better. I’ve lost track
-        of how many there’s been, something around eight (I take vacation every
-        summer by quitting one job and starting another a few months later).
+        at Microsoft, but I honestly like startups way better.
       </p>
       <p style={{ marginBottom: "0" }}>
         You can find me on <a href="https://github.com/malyvsen/">GitHub</a> and
