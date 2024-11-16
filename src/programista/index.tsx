@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import MalyvsenPage from "@components/MalyvsenPage";
 
+import articles from "./articles";
+import Article, { getArticleSlug } from "./Article";
+
 export default function Programista() {
   useTitle("Mikołaj Bocheński");
 
@@ -25,17 +28,21 @@ export default function Programista() {
           </a>
         </p>
       </div>
-      <ArticleLink to="Research code" />
-      <ArticleLink to="Polonizacja programowania" />
-      <ArticleLink to="A perspective on how LLMs work" />
+      {articles.map((article) => (
+        <ArticleLink key={article.title} article={article} />
+      ))}
     </MalyvsenPage>
   );
 }
 
-function ArticleLink({ to }: { to: string }) {
+function ArticleLink({ article }: { article: Article }) {
   return (
-    <Link className="hover-link" style={{ fontSize: "2em" }} to={to}>
-      {to}
+    <Link
+      className="hover-link"
+      style={{ fontSize: "2em" }}
+      to={getArticleSlug(article)}
+    >
+      {article.title}
     </Link>
   );
 }
