@@ -54,3 +54,14 @@ input {
 input:focus {
   outline: none;
 }
+
+.hover-link {
+  font-weight: 400;
+  text-decoration: none;
+  transition-duration: 0.2s;
+}
+
+.hover-link:hover {
+  transition-duration: 0s;
+  font-weight: 500;
+}

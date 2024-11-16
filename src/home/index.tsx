@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTitle } from "react-use";
 
-import MalyvsenAnimation from "./MalyvsenAnimation";
-
-import "./index.css";
+import MalyvsenAnimation from "@components/MalyvsenAnimation";
 
 function Home() {
   useTitle("Malyvsen");
@@ -51,7 +49,11 @@ function Home() {
 
 function BigLink({ to }: { to: string }) {
   return (
-    <Link className="big-link" to={to}>
+    <Link
+      className="hover-link"
+      style={{ fontSize: "3em", marginTop: "10px", marginBottom: "10px" }}
+      to={to}
+    >
       {to}
     </Link>
   );

@@ -7,6 +7,7 @@ import Aktor from "./aktor";
 import Home from "./home";
 import Kryspi from "./kryspi";
 import Manfred from "./manfred";
+import Programista from "./programista";
 import Szyfrownica from "./szyfrownica";
 
 const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/kryspi", element: <Kryspi /> },
   { path: "/manfred", element: <Manfred /> },
+  { path: "/programista", element: <Programista /> },
   { path: "/szyfrownica", element: <Szyfrownica /> },
 ]);
 
