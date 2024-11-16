@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 
-import Clients, { decryptClients } from "./clients";
-import { decrypt, passwordToKey } from "./encryption";
+import Clients, { decryptClients } from "@utils/clients";
+import { decrypt, passwordToKey } from "@utils/encryption";
 
 function PasswordGate({
   setClients,

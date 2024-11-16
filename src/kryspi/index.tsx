@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTitle } from "react-use";
 
 import Clients from "@utils/clients";
-import PasswordGate from "@utils/PasswordGate";
+import PasswordGate from "@components/PasswordGate";
 
 import DecryptedKryspi from "./components/DecryptedKryspi";
 import ThemeProvider from "./components/ThemeProvider";
