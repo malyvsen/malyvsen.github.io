@@ -37,16 +37,16 @@ export const perspective: Article = {
           Given all my experience with deep learning, LLMs seem to generalize{" "}
           <em>too</em> well: they don't just learn word patterns, they seem to
           actually acquire knowledge. They'll often make true statements which I
-          have a hard time believing appeared verbatim in their training data.
+          have a hard time believing appeared in their training data. For
+          example, Claude 3.5 Sonnet has no trouble telling a hypothetically
+          resurrected political figure what happened since their death.
         </li>
         <li>
           It seems impossible for an LLM to incrementally build a mental model
-          of something: when they focus on one aspect of a topic, they disregard
-          others. When you ask an LLM to help solve a problem, get a solution
-          which won't work due to some extra circumstances, and provide these
-          circumstances to narrow down the scope, the LLM will often
-          successfully address the circumstances but fail to solve the original
-          problem.
+          of something: they have trouble "zooming in and out", like humans do.
+          They either focus on some particular detail, or the big picture, but
+          taking many things into account at the same time isn't something
+          they're able to do.
         </li>
       </ol>
 
