@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import MalyvsenPage from "@components/MalyvsenPage";
 
 import articles from "./articles";
-import Article, { getArticleSlug } from "./Article";
+import Article from "./Article";
 
 export default function Programista() {
   useTitle("Mikołaj Bocheński");
@@ -38,11 +38,7 @@ export default function Programista() {
 
 function ArticleLink({ article }: { article: Article }) {
   return (
-    <Link
-      className="hover-link"
-      style={{ fontSize: "2em" }}
-      to={getArticleSlug(article)}
-    >
+    <Link className="hover-link" style={{ fontSize: "2em" }} to={article.id}>
       {article.title}
     </Link>
   );

@@ -1,6 +1,7 @@
 import Article from "../Article";
 
 export const perspective: Article = {
+  id: "perspective-on-llms",
   title: "A perspective on how LLMs work",
   content: (
     <>

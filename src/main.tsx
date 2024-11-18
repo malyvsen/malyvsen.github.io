@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   { path: "/kryspi", element: <Kryspi /> },
   { path: "/manfred", element: <Manfred /> },
   { path: "/programista", element: <Programista /> },
-  { path: "/programista/:articleSlug", element: <ArticlePage /> },
+  { path: "/programista/:articleId", element: <ArticlePage /> },
   { path: "/szyfrownica", element: <Szyfrownica /> },
 ]);
 

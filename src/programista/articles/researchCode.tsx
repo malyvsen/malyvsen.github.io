@@ -1,6 +1,7 @@
 import Article from "../Article";
 
 export const researchCode: Article = {
+  id: "research-code",
   title: "Research code",
   content: (
     <>

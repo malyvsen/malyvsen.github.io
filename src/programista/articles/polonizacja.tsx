@@ -1,6 +1,7 @@
 import Article from "../Article";
 
 export const polonizacja: Article = {
+  id: "polonizacja-programowania",
   title: "Polonizacja programowania",
   content: (
     <>

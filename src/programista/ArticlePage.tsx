@@ -2,14 +2,12 @@ import { useParams, Link } from "react-router-dom";
 import { useMedia, useTitle } from "react-use";
 
 import articles from "./articles";
-import Article, { getArticleSlug } from "./Article";
+import Article from "./Article";
 import Footer from "./Footer";
 
 export default function ArticlePage() {
-  const { articleSlug } = useParams();
-  const data = articles.find(
-    (article) => getArticleSlug(article) === articleSlug
-  );
+  const { articleId } = useParams();
+  const data = articles.find((article) => article.id === articleId);
 
   if (data === undefined) {
     return MissingArticlePage();
@@ -29,7 +27,7 @@ function MissingArticlePage() {
         alignItems: "center",
       }}
     >
-      <p>Article not found (I might have renamed it, sorry!)</p>
+      <p>Article not found :(</p>
       <Link to=".." relative="path">
         Go to list of articles
       </Link>
