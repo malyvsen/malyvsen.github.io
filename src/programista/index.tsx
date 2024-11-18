@@ -13,7 +13,8 @@ export default function Programista() {
     <MalyvsenPage>
       <div>
         <p style={{ marginTop: "0", marginBottom: "0", fontSize: "2em" }}>
-          Self-taught AI researcher.
+          Never-seen-before crossbreed of AI&nbsp;researcher and
+          clean&nbsp;coder.
         </p>
         <p style={{ marginTop: "0", fontSize: "1.4em" }}>
           <a className="hover-link" href="https://github.com/malyvsen/">
