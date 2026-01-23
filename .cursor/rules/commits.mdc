@@ -1,0 +1,22 @@
+---
+description: Git commit message conventions
+alwaysApply: true
+---
+
+# Commit messages
+
+Format: `type(scope): message` or `type: message`. Keep messages short, no extended descriptions.
+
+Scope = affected module(s) (top-level folders under src/), comma-separated if multiple; omit when changes affect whole repo.
+
+| Type | When to use |
+|------|-------------|
+| `feat` | Changes end-user behavior |
+| `fix` | Bug fixes |
+| `refactor` | Internal changes, same behavior |
+| `chore` | Tooling, deps, config |
+| `docs` | Documentation only |
+
+# Rewriting commits
+
+It's okay to amend the last commit if it was made by you and the amendment increases clarity.

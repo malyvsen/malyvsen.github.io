@@ -1,0 +1,13 @@
+---
+description: Documentation style
+globs: "*.md,*.mdc"
+alwaysApply: false
+---
+
+# Documentation style
+
+- Brief and concise - cut unnecessary words
+- Only document what's non-intuitive to you or project-specific
+- Tables for structured info
+- Sentence case for headings
+- Explain the "why" rather than the "what"
