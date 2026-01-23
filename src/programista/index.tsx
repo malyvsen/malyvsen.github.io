@@ -1,10 +1,10 @@
-import { useTitle } from "react-use";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 import MalyvsenPage from "@components/MalyvsenPage";
+import { useTitle } from "../hooks";
 
 import articles from "./articles";
-import Article from "./Article";
+import type Article from "./Article";
 
 export default function Programista() {
   useTitle("Mikołaj Bocheński");

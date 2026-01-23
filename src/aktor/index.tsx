@@ -1,4 +1,4 @@
-import { useMedia, useTitle } from "react-use";
+import { useMediaQuery, useTitle } from "../hooks";
 
 import FaceCutout from "./FaceCutout";
 import Hello from "./Hello";
@@ -7,7 +7,7 @@ import Links from "./Links";
 export default function Aktor() {
   useTitle("Mikołaj Bocheński");
 
-  const isWideScreen = useMedia("(min-width: 900px)");
+  const isWideScreen = useMediaQuery("(min-width: 900px)");
   const backgroundColor = "#ece0d7";
 
   if (!isWideScreen) {

@@ -1,7 +1,11 @@
-import dotenv from "dotenv";
-import { defineConfig } from "vitest/config";
+import { defineConfig, mergeConfig } from "vitest/config";
 import viteConfig from "./vite.config";
 
-dotenv.config();
-
-export default defineConfig({ ...viteConfig });
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      environment: "jsdom",
+    },
+  })
+);

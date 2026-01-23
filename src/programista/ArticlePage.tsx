@@ -1,8 +1,9 @@
-import { useParams, Link } from "react-router-dom";
-import { useMedia, useTitle } from "react-use";
+import { Link, useParams } from "react-router";
+
+import { useMediaQuery, useTitle } from "../hooks";
 
 import articles from "./articles";
-import Article from "./Article";
+import type Article from "./Article";
 import Footer from "./Footer";
 
 export default function ArticlePage() {
@@ -10,9 +11,9 @@ export default function ArticlePage() {
   const data = articles.find((article) => article.id === articleId);
 
   if (data === undefined) {
-    return MissingArticlePage();
+    return <MissingArticlePage />;
   }
-  return ExistingArticlePage({ data });
+  return <ExistingArticlePage data={data} />;
 }
 
 function MissingArticlePage() {
@@ -38,7 +39,7 @@ function MissingArticlePage() {
 function ExistingArticlePage({ data }: { data: Article }) {
   useTitle(data.title);
 
-  const isWideScreen = useMedia("(min-width: 60em)");
+  const isWideScreen = useMediaQuery("(min-width: 60em)");
   return (
     <div
       style={{
