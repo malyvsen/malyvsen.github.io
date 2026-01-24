@@ -1,4 +1,4 @@
-import type Article from "../Article";
+import type { Article } from "@/types";
 
 export const polonizacja: Article = {
   id: "polonizacja-programowania",

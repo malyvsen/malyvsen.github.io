@@ -1,4 +1,4 @@
-import { useMediaQuery, useTitle } from "../hooks";
+import { useMediaQuery, useTitle } from "@/hooks";
 
 import FaceCutout from "./FaceCutout";
 import Hello from "./Hello";

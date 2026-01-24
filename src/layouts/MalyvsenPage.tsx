@@ -1,4 +1,4 @@
-import MalyvsenAnimation from "./MalyvsenAnimation";
+import MalyvsenAnimation from "@/components/MalyvsenAnimation";
 
 export default function MalyvsenPage({
   children,

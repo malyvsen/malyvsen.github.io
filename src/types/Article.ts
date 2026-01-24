@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-export default interface Article {
+export interface Article {
   id: string;
   title: string;
   content: React.ReactNode;

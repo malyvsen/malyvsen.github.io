@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router";
 
-import { useMediaQuery, useTitle } from "../hooks";
+import { useMediaQuery, useTitle } from "@/hooks";
+import type { Article } from "@/types";
 
 import articles from "./articles";
-import type Article from "./Article";
 import Footer from "./Footer";
 
 export default function ArticlePage() {

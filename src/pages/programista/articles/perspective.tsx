@@ -1,4 +1,4 @@
-import type Article from "../Article";
+import type { Article } from "@/types";
 
 export const perspective: Article = {
   id: "perspective-on-llms",

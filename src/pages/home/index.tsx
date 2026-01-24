@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
-import MalyvsenPage from "@components/MalyvsenPage";
-import { useTitle } from "../hooks";
+import { MalyvsenPage } from "@/layouts";
+import { useTitle } from "@/hooks";
 
 export default function Home() {
   useTitle("Malyvsen");

@@ -2,10 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import Aktor from "./aktor";
-import Home from "./home";
-import Programista from "./programista";
-import ArticlePage from "./programista/ArticlePage";
+import Aktor from "@/pages/aktor";
+import Home from "@/pages/home";
+import Programista from "@/pages/programista";
+import ArticlePage from "@/pages/programista/ArticlePage";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
