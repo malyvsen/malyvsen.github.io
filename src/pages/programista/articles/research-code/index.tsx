@@ -6,11 +6,11 @@ export const researchCode: Article = {
   content: (
     <>
       <p>
-        …always sucks. It’s a synonym for “illegible, overcomplicated, and
-        fragile”, as anyone who’s worked in machine learning will tell you -
-        then, after remembering that “pragmatic” was one of the keywords in
-        their job description: “it has to be this way if you go fast”. I
-        disagree. If you want to go fast, you don’t want other people’s code to
+        …always sucks. It's a synonym for "illegible, overcomplicated, and
+        fragile", as anyone who's worked in machine learning will tell you -
+        then, after remembering that "pragmatic" was one of the keywords in
+        their job description: "it has to be this way if you go fast". I
+        disagree. If you want to go fast, you don't want other people's code to
         slow you down. You can usually live with your own bad code, though, at
         least for a while - and this, I think, is key to the solution.
       </p>

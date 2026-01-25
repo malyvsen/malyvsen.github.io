@@ -1,5 +1,5 @@
-import { perspective } from "./perspective";
-import { polonizacja } from "./polonizacja";
-import { researchCode } from "./researchCode";
+import { perspective } from "./perspective-on-llms";
+import { polonizacja } from "./polonizacja-programowania";
+import { researchCode } from "./research-code";
 
 export default [researchCode, polonizacja, perspective];

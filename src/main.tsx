@@ -4,8 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 import Aktor from "@/pages/aktor";
 import Home from "@/pages/home";
+import Pisarz from "@/pages/pisarz";
+import PisarzArticlePage from "@/pages/pisarz/ArticlePage";
 import Programista from "@/pages/programista";
-import ArticlePage from "@/pages/programista/ArticlePage";
+import ProgramistaArticlePage from "@/pages/programista/ArticlePage";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,8 +15,10 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/aktor" element={<Aktor />} />
+        <Route path="/pisarz" element={<Pisarz />} />
+        <Route path="/pisarz/:articleId" element={<PisarzArticlePage />} />
         <Route path="/programista" element={<Programista />} />
-        <Route path="/programista/:articleId" element={<ArticlePage />} />
+        <Route path="/programista/:articleId" element={<ProgramistaArticlePage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

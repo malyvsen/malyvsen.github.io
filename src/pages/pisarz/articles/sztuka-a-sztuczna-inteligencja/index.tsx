@@ -1,0 +1,163 @@
+import type { Article } from "@/types";
+import fractal from "./fractal.jpg";
+
+export const sztukaASztucznaInteligencja: Article = {
+  id: "sztuka-a-sztuczna-inteligencja",
+  title: "Sztuka a sztuczna inteligencja",
+  content: (
+    <>
+      <p>
+        Ale się fajnie układa ten tytuł. No ja cię. Sztuka, czyli coś
+        sztucznego, jak ta inteligencja... Zdawałoby się, wspólny mianownik, ale
+        obecnie na granicy tych dziedzin wre, pierwsza wymiana ognia już za
+        nami, wojna wypowiedziana, mobilizacja, czekamy tylko na Blitz. A ja,
+        tak się składa, mam podwójny paszport (zjawisko bardzo rzadkie) i
+        chciałem desperacko zawalczyć o zdrowy rozsądek w tym wszystkim.
+      </p>
+      <p>
+        Kieruję ten esej do artystów, którzy obawiają się o wpływ sztucznej
+        inteligencji na ich działalność, a także do tych nielicznych, którzy o
+        tym wpływie myślą, nie obawiając się go. Na początek trochę o mnie, żeby
+        wyjaśnić, czemu mogę się na ten temat wypowiadać prawdopodobnie bardziej
+        autorytatywnie, niż wasz kolega w Eszewerii o trzeciej nad ranem: od
+        dziesięciu lat badam i programuję sztuczną inteligencję. Mam tytuł
+        magistra z jednej z najlepszych europejskich uczelni informatycznych
+        (KTH - Politechnika Królewska w Sztokholmie). Pracuję dla startupu z
+        Doliny Krzemowej, gdzie regularnie bywam; trzy takie firmy pomagałem
+        zresztą zakładać.
+      </p>
+      <p>
+        Mój drugi paszport jest nieco bardziej skromny: jestem aktorem-amatorem,
+        gram w Teatrze Loch Camelot i od czasu do czasu pojawiam się w krótkich
+        formach filmowych. Współorganizuję też Szlam Literacki. Zdarza mi się
+        przetłumaczyć przypadkiem Rilkego czy Herberta. W każdym razie słyszę w
+        tych Prowincjach, Bunkrach, Piwnicach i Lokalach o waszych obawach,
+        roszczeniach, przekonaniach i żalach, i postaram się tu na nie
+        odpowiedzieć.
+      </p>
+      <p>
+        Zacznijmy od noty historycznej. AI było uczone na treściach publicznie
+        dostępnych w internecie od zawsze (to znaczy - od kilkudziesięciu lat,
+        bo wcześniej o uczeniu nie może być mowy) i jakoś nikt nie miał z tym
+        problemu. Oczywiście początkowo było to zajęcie przede wszystkim
+        akademickie (ja zresztą sam myślałem, że zostanę na uczelni, ale
+        najlepsze badania robią obecnie prywatne firmy). Raczkujący Terminator
+        odróżniał kotki od piesków na obrazkach, a my biliśmy mu brawo. Z czasem
+        Terminatorek (Terminatorzątko, Terminatunio) zaczął rozróżniać
+        muchołówkę wierzbową od olchowej, czego nie umie nawet mój tata,
+        profesor ornitologii. Zaczął też - o zgrozo! - rozróżniać
+        mikrozwapnienia łagodne od podejrzanych na zdjęciach rentgenowskich. O
+        zgrozo, bo to przecież praca radiologa! Co teraz pocznie radiolog?
+      </p>
+      <p>
+        Około tego czasu (końcówka lat „dwa tysiące nastych”) usłyszałem
+        pierwsze głosy sprzeciwiające się rozwojowi sztucznej inteligencji.
+        Oczywiście rozumiałem - o ile akurat mój produkt służył do wspierania
+        pracy radiologów, o tyle w teorii można by go wykorzystać do zastąpienia
+        ich. Do podobnych celów dążyło zresztą wiele firm, choć niekoniecznie z
+        egoistyczno-kapitalistycznych pobudek (o tym w innym eseju - rozgadałbym
+        się tu niemiłosiernie). Drodzy artyści, nie was pierwszych dotyka
+        przerażająca wizja wyparcia.
+      </p>
+      <p>
+        Jesteście jednak pierwszą grupą, która - moim zdaniem - ma w torebce gaz
+        pieprzowy. I nie mam tu na myśli waszych głośnych akcji protestacyjnych,
+        ale waszą wyjątkowość. Podczas gdy wszystkie inne zawody funkcjonują z
+        grubsza według zasady „ja daję wam czas, wy dajecie mi pieniądze”, o
+        tyle w sztuce chodzi właśnie o ten wyjątkowo ludzki, niezastąpiony
+        czynnik, o duszę w cudzysłowie czy bez. Pojawiająca się raz na jakiś
+        czas nowinka technologiczna - aparat fotograficzny, mikrofon, syntezator
+        - odbiera sztuce dotychczasowy monopol na warsztat, ale nie na sens.
+        Sądzę, że tak będzie i ze sztuczną inteligencją: co z tego, że - jak
+        ostatnio wykrzyczał mój przyjaciel w Krainie, <i>nomen non est omen</i>,
+        Szeptów - aktorów drugiego planu już da się zastąpić AI, jeśli dojdziemy
+        do wniosku, że zastąpiony element nie jest sztuką <i>per se</i>? Jeśli
+        aktorów da się wygenerować bez straty wartości dzieła, to - moim zdaniem
+        - nie byli potrzebni, to znaczy - nie byli potrzebni <i>dla widza</i>.
+      </p>
+      <p>
+        Bo… dla kogo jest sztuka? Moim zdaniem w dużej mierze dla artysty. Jest
+        to dla nas pasja, źródło spełnienia. Czemu więc oczekujemy, że da nam
+        chleb, a naszym dzieciom - miejsce w prywatnym żłobku z językiem
+        angielskim? Gdyby tak na chwilę zatrzymać świat, odsunąć się od niego i
+        popatrzeć…{" "}
+        <i>
+          Wyobraź sobie, że umiesz widzieć rzecz taką, jaka ona jest - że da się
+          zdjąć okulary skojarzeń, wymazać wspomnień obrazy
+        </i>
+        . Zapomnij na chwilę o tym, na co się nastawiałeś, nastawiałaś na
+        początku kariery. Porządek ludzki jest właściwie całkiem absurdalny, i
+        jednym z tych absurdów jest to, że oczekujemy zapłaty za coś - w
+        założeniu - przyjemnego. Ma sens pensja kierowcy autobusu, który wolałby
+        spędzić swój dzień na wędrówce po Gorcach. Ale pensja aktora, malarza,
+        pisarza…?
+      </p>
+      <p>
+        Oczywiście słowo-klucz w powyższym wywodzie to „założenie”, bo
+        uprawianie sztuki często nie jest przyjemne (mówimy: „chałtura”,
+        ewentualnie „to nie jest moje”, ewentualnie „kiepski spektakl, ale mam
+        angaż”). Za takie zadania - jak najbardziej, rozumiem potrzebę zapłaty.
+        Ale w głębi duszy - czy myślisz o nich jako o <i>sztuce</i>? Czy koniec
+        końców nie jesteś na ich potrzeby po prostu rzemieślnikiem?
+      </p>
+      <p>
+        Tak więc uważam, że te chałtury i nie-moje role owszem, zastąpi sztuczna
+        inteligencja, ale sztuka przez wielkie „sz” wykona unik w bok, byk
+        wyrżnie w mur, a artysta będzie trwał nadal, tylko z nową,
+        precyzyjniejszą definicją swojego zajęcia. Nie zrozumcie mnie źle: to
+        świetnie, że (jakkolwiek zazwyczaj z trudem) można na sztuce zarobić, i
+        korzystajmy z tego! Ale moim zdaniem jest to raczej szczęśliwy zbieg
+        okoliczności niż prawo natury. Gdybym miał wyeliminować ze świata
+        absurd, to rozdzieliłbym prace niechciane, niezwiązane z pasjami, po
+        równo między ludzi, jak obowiązki domowe - a w pozostałym czasie każdy
+        mógłby się spełniać, jak chce. Małym krokiem ku temu byłby dochód
+        podstawowy, do którego swoją drogą - mam nadzieję - zbliża nas to całe
+        zamieszanie z AI, ale o tym kiedy indziej.
+      </p>
+      <p>
+        Nie twierdzę, że aktorów drugiego planu zastąpić należy, czy nawet, że
+        się da. Po prostu - jeśli da się ich zastąpić, jeśli dopuszczamy taką
+        myśl, to mówi nam to coś o naturze ich pracy. Sztuka przyszłości będzie
+        - tak sądzę - dużo bardziej o tym, co jesteśmy w stanie wymyślić, niż o
+        tym, co jesteśmy w stanie zrobić.
+      </p>
+      <p>
+        Wracamy na Ziemię, do teraźniejszości. Nie chcę się bawić w
+        przewidywanie rozwoju najbliższych wydarzeń, ale zaproponuję ramy, w
+        obrębie których mogą one mieć miejsce, i związanie z nimi rady.
+      </p>
+      <p>
+        Po pierwsze, nie bójcie się sztuki stworzonej „w całości” przez sztuczną
+        inteligencję. Sztuczna inteligencja nie ma procesu twórczego, jest - jak
+        to się pięknie mówi po angielsku - grającą w kości papugą,{" "}
+        <i>stochastic parrot</i>. Nie poradzi sobie. Jeśli zaś narzucimy jej
+        proces twórczy, to w pewnym sensie sami stajemy się artystami. Swoją
+        drogą, maszynom narzucano proces twórczy na długo przed sztuczną
+        inteligencją, a nawet i przed komputerami - polecam wyszukać hasło
+        „generative art”.
+      </p>
+      <p>
+        Po drugie, nie bójcie się stosowania sztucznej inteligencji w sztuce.
+        Protestujcie, jeśli to obniża jej wartość, ale przyjmijcie je, jeśli
+        jest odwrotnie (chociażby dlatego, że macie więcej czasu na korektę
+        kolorów, bo pierwszą wersją efektów specjalnych zajmie się AI).
+        Wykorzystujcie sztuczną inteligencję do małych, odizolowanych zadań,
+        których efekty potem samemu połączycie w całość. Pomysły mają być wasze,
+        a wykonanie możecie zlecić komputerowi, jeśli wola.
+      </p>
+      <p>
+        Po trzecie, szukajcie czynnika ludzkiego w swojej sztuce. Specjalizujcie
+        się w nim. Wasza moc leży w waszej fantazji.
+      </p>
+      <p>
+        To tyle. Zostawię Was z kawałkiem <i>generative art</i> wykoncypowanym
+        na długo przed AI przez urodzonego jeszcze w przedwojennej Warszawie
+        matematyka, Benoît Mandelbrota. Piękny, prawda?
+      </p>
+      <div style={{ marginTop: "1rem" }}>
+        <img src={fractal} alt="Fraktal" style={{ width: "100%" }} />
+      </div>
+    </>
+  ),
+  hasFooter: false,
+};
