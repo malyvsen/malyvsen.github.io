@@ -5,22 +5,16 @@ import type { Article } from "@/types";
 
 interface ArticlePageProps {
   articles: Article[];
-  ViewMoreComponent?: React.ComponentType<{ style?: React.CSSProperties }>;
 }
 
-export function ArticlePage({
-  articles,
-  ViewMoreComponent = ViewMoreArticles,
-}: ArticlePageProps) {
+export function ArticlePage({ articles }: ArticlePageProps) {
   const { articleId } = useParams();
   const data = articles.find((article) => article.id === articleId);
 
   if (data === undefined) {
     return <MissingArticlePage />;
   }
-  return (
-    <ExistingArticlePage data={data} ViewMoreComponent={ViewMoreComponent} />
-  );
+  return <ExistingArticlePage data={data} />;
 }
 
 function MissingArticlePage() {
@@ -43,15 +37,7 @@ function MissingArticlePage() {
   );
 }
 
-interface ExistingArticlePageProps {
-  data: Article;
-  ViewMoreComponent: React.ComponentType<{ style?: React.CSSProperties }>;
-}
-
-function ExistingArticlePage({
-  data,
-  ViewMoreComponent,
-}: ExistingArticlePageProps) {
+function ExistingArticlePage({ data }: { data: Article }) {
   useTitle(data.title);
 
   const isWideScreen = useMediaQuery("(min-width: 60em)");
@@ -65,7 +51,8 @@ function ExistingArticlePage({
       }}
     >
       {isWideScreen ? (
-        <ViewMoreComponent
+        <ViewMoreLink
+          text={data.viewMoreText}
           style={{
             position: "fixed",
             right: "0.5em",
@@ -90,7 +77,7 @@ function ExistingArticlePage({
         {FooterComponent ? <FooterComponent /> : null}
         {isWideScreen ? null : (
           <div style={{ textAlign: "right", marginTop: "1em" }}>
-            <ViewMoreComponent />
+            <ViewMoreLink text={data.viewMoreText} />
           </div>
         )}
       </div>
@@ -98,7 +85,13 @@ function ExistingArticlePage({
   );
 }
 
-function ViewMoreArticles({ style }: { style?: React.CSSProperties }) {
+function ViewMoreLink({
+  text,
+  style,
+}: {
+  text: string;
+  style?: React.CSSProperties;
+}) {
   return (
     <Link
       to=".."
@@ -109,7 +102,7 @@ function ViewMoreArticles({ style }: { style?: React.CSSProperties }) {
         color: "inherit",
       }}
     >
-      View more articles
+      {text}
     </Link>
   );
 }

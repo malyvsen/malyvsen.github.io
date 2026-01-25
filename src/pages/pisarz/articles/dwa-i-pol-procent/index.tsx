@@ -239,4 +239,5 @@ export const dwaIPolProcent: Article = {
       </div>
     </>
   ),
+  viewMoreText: "Zobacz inne artykuły",
 };

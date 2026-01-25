@@ -159,4 +159,5 @@ export const sztukaASztucznaInteligencja: Article = {
       </div>
     </>
   ),
+  viewMoreText: "Zobacz inne artykuły",
 };

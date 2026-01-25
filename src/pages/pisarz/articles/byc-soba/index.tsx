@@ -99,4 +99,5 @@ export const bycSoba: Article = {
       </p>
     </>
   ),
+  viewMoreText: "Zobacz inne artykuły",
 };

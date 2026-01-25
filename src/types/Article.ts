@@ -5,4 +5,5 @@ export interface Article {
   title: string;
   content: React.ReactNode;
   footer?: React.ComponentType;
+  viewMoreText: string;
 }

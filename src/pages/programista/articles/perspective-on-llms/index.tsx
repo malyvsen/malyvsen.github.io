@@ -87,4 +87,5 @@ export const perspective: Article = {
     </>
   ),
   footer: MachineLearningFooter,
+  viewMoreText: "View more articles",
 };

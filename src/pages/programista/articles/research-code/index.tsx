@@ -42,4 +42,5 @@ export const researchCode: Article = {
     </>
   ),
   footer: MachineLearningFooter,
+  viewMoreText: "View more articles",
 };

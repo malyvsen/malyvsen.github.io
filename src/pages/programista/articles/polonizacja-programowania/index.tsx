@@ -80,4 +80,5 @@ export const polonizacja: Article = {
       </ul>
     </>
   ),
+  viewMoreText: "Zobacz inne artykuły",
 };
