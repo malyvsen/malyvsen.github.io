@@ -1,3 +1,5 @@
+import { Link, useLocation } from "react-router";
+
 import MalyvsenAnimation from "@/components/MalyvsenAnimation";
 
 export default function MalyvsenPage({
@@ -5,6 +7,9 @@ export default function MalyvsenPage({
 }: {
   children: React.ReactNode;
 }) {
+  const location = useLocation();
+  const isHomepage = location.pathname === "/";
+
   return (
     <div
       style={{
@@ -27,7 +32,13 @@ export default function MalyvsenPage({
           padding: "0",
         }}
       >
-        <MalyvsenAnimation />
+        {isHomepage ? (
+          <MalyvsenAnimation />
+        ) : (
+          <Link to="/" style={{ all: "unset", cursor: "pointer" }}>
+            <MalyvsenAnimation />
+          </Link>
+        )}
       </h1>
 
       <div
