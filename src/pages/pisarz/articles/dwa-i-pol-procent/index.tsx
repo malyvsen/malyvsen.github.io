@@ -206,16 +206,35 @@ export const dwaIPolProcent: Article = {
         nakazów i zakazów, zadawanie takich pytań to myślenie o krok do przodu -
         a to tak wygrywa się grę.
       </p>
-      <div style={{ display: "flex", gap: "2rem", marginTop: "1rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+          marginTop: "1rem",
+        }}
+      >
         <img
           src={coinObverse}
           alt="Awers dziesięciozłotówki z podobizną Józefa Piłsudskiego"
-          style={{ flex: 1, minWidth: 0, height: "auto", objectFit: "cover" }}
+          style={{
+            flex: "1 1 200px",
+            minWidth: 0,
+            maxWidth: "100%",
+            height: "auto",
+            objectFit: "cover",
+          }}
         />
         <img
           src={coinReverse}
           alt="Rewers dziesięciozłotówki z orzełkiem"
-          style={{ flex: 1, minWidth: 0, height: "auto", objectFit: "cover" }}
+          style={{
+            flex: "1 1 200px",
+            minWidth: 0,
+            maxWidth: "100%",
+            height: "auto",
+            objectFit: "cover",
+          }}
         />
       </div>
     </>
