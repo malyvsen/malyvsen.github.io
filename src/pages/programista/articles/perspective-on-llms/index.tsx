@@ -1,3 +1,4 @@
+import MachineLearningFooter from "@/components/MachineLearningFooter";
 import type { Article } from "@/types";
 
 export const perspective: Article = {
@@ -85,5 +86,5 @@ export const perspective: Article = {
       </p>
     </>
   ),
-  hasFooter: true,
+  footer: MachineLearningFooter,
 };

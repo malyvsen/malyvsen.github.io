@@ -1,3 +1,4 @@
+import MachineLearningFooter from "@/components/MachineLearningFooter";
 import type { Article } from "@/types";
 
 export const researchCode: Article = {
@@ -40,5 +41,5 @@ export const researchCode: Article = {
       </p>
     </>
   ),
-  hasFooter: true,
+  footer: MachineLearningFooter,
 };

@@ -239,5 +239,4 @@ export const dwaIPolProcent: Article = {
       </div>
     </>
   ),
-  hasFooter: false,
 };

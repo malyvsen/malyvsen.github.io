@@ -5,13 +5,11 @@ import type { Article } from "@/types";
 
 interface ArticlePageProps {
   articles: Article[];
-  FooterComponent?: React.ComponentType;
   ViewMoreComponent?: React.ComponentType<{ style?: React.CSSProperties }>;
 }
 
 export function ArticlePage({
   articles,
-  FooterComponent,
   ViewMoreComponent = ViewMoreArticles,
 }: ArticlePageProps) {
   const { articleId } = useParams();
@@ -21,11 +19,7 @@ export function ArticlePage({
     return <MissingArticlePage />;
   }
   return (
-    <ExistingArticlePage
-      data={data}
-      FooterComponent={FooterComponent}
-      ViewMoreComponent={ViewMoreComponent}
-    />
+    <ExistingArticlePage data={data} ViewMoreComponent={ViewMoreComponent} />
   );
 }
 
@@ -51,18 +45,17 @@ function MissingArticlePage() {
 
 interface ExistingArticlePageProps {
   data: Article;
-  FooterComponent?: React.ComponentType;
   ViewMoreComponent: React.ComponentType<{ style?: React.CSSProperties }>;
 }
 
 function ExistingArticlePage({
   data,
-  FooterComponent,
   ViewMoreComponent,
 }: ExistingArticlePageProps) {
   useTitle(data.title);
 
   const isWideScreen = useMediaQuery("(min-width: 60em)");
+  const FooterComponent = data.footer;
   return (
     <div
       style={{
@@ -94,7 +87,7 @@ function ExistingArticlePage({
           <h1>{data.title}</h1>
           {data.content}
         </div>
-        {data.hasFooter && FooterComponent ? <FooterComponent /> : null}
+        {FooterComponent ? <FooterComponent /> : null}
         {isWideScreen ? null : (
           <div style={{ textAlign: "right", marginTop: "1em" }}>
             <ViewMoreComponent />

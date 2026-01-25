@@ -80,5 +80,4 @@ export const polonizacja: Article = {
       </ul>
     </>
   ),
-  hasFooter: false,
 };

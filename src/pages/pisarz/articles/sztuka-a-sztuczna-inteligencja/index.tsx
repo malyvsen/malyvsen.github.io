@@ -159,5 +159,4 @@ export const sztukaASztucznaInteligencja: Article = {
       </div>
     </>
   ),
-  hasFooter: false,
 };

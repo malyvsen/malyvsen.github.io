@@ -99,5 +99,4 @@ export const bycSoba: Article = {
       </p>
     </>
   ),
-  hasFooter: false,
 };
