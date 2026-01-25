@@ -15,7 +15,7 @@ export const sztukaASztucznaInteligencja: Article = {
         chciałem desperacko zawalczyć o zdrowy rozsądek w tym wszystkim.
       </p>
       <p>
-        Kieruję ten esej do artystów, którzy obawiają się o wpływ sztucznej
+        Kieruję ten esej do artystów, którzy obawiają się wpływu sztucznej
         inteligencji na ich działalność, a także do tych nielicznych, którzy o
         tym wpływie myślą, nie obawiając się go. Na początek trochę o mnie, żeby
         wyjaśnić, czemu mogę się na ten temat wypowiadać prawdopodobnie bardziej
