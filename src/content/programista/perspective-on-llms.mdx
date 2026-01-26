@@ -2,7 +2,8 @@
 title: "A perspective on how LLMs work"
 description: "If psychologists studied LLMs"
 ---
-import MachineLearningFooter from '@/components/MachineLearningFooter.astro';
+
+import MachineLearningFooter from "@/components/MachineLearningFooter.astro";
 
 Most of my days are spent trying to extract every bit of smarts from LLMs, and it's usually incremental work: improve this here, simplify that there. What I live for, though, are fundamental truths (I wanted to be a scientist most of my life, until I got a taste of how energy-deprived academia is). So here's my shot: let me share my way of thinking about how LLMs work.
 
@@ -12,7 +13,7 @@ If this feels dangerously close to psychology, that's for a good reason. I don't
 
 I came up with this theory while wondering about two puzzles I have encountered in my work:
 
-1. Given all my experience with deep learning, LLMs seem to generalize *too* well: they don't just learn word patterns, they seem to actually acquire knowledge. They'll often make true statements which I have a hard time believing appeared in their training data. For example, Claude 3.5 Sonnet has no trouble telling a hypothetically resurrected political figure what happened since their death.
+1. Given all my experience with deep learning, LLMs seem to generalize _too_ well: they don't just learn word patterns, they seem to actually acquire knowledge. They'll often make true statements which I have a hard time believing appeared in their training data. For example, Claude 3.5 Sonnet has no trouble telling a hypothetically resurrected political figure what happened since their death.
 2. It seems impossible for an LLM to incrementally build a mental model of something: they have trouble "zooming in and out", like humans do. They either focus on some particular detail, or the big picture, but taking many things into account at the same time isn't something they're able to do.
 
 My little theory provides an intuitive explanation for both:

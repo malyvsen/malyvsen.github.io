@@ -7,11 +7,13 @@ const articles = await getCollection("pisarz");
 
 <MalyvsenPage title="Mikołaj Bocheński" description="Pisarz">
   <p class="intro">Piszę czasami.</p>
-  {articles.map((article) => (
-    <a class="hover-link article-link" href={`/pisarz/${article.id}`}>
-      {article.data.title}
-    </a>
-  ))}
+  {
+    articles.map((article) => (
+      <a class="hover-link article-link" href={`/pisarz/${article.id}`}>
+        {article.data.title}
+      </a>
+    ))
+  }
 </MalyvsenPage>
 
 <style>
