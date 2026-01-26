@@ -1,0 +1,64 @@
+---
+import Base from "./Base.astro";
+import MalyvsenAnimation from "@/components/MalyvsenAnimation";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const isHomepage = Astro.url.pathname === "/";
+---
+
+<Base title={title} description={description}>
+  <div class="container">
+    <h1 class="title">
+      {
+        isHomepage ? (
+          <MalyvsenAnimation client:load />
+        ) : (
+          <a href="/">
+            <MalyvsenAnimation client:load />
+          </a>
+        )
+      }
+    </h1>
+    <div class="content">
+      <slot />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 25vh;
+    left: 25vw;
+    height: 50vh;
+    width: 50vw;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title {
+    writing-mode: vertical-rl;
+    rotate: 180deg;
+    margin: 1rem;
+    padding: 0;
+  }
+
+  .title a {
+    all: unset;
+    cursor: pointer;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+</style>

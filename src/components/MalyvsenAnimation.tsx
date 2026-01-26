@@ -1,7 +1,7 @@
 import { TypeAnimation } from "react-type-animation";
 import { useState } from "react";
 
-function MalyvsenAnimation() {
+export default function MalyvsenAnimation() {
   const [isAnimating, setIsAnimating] = useState(false);
 
   return (
@@ -28,5 +28,3 @@ function MalyvsenAnimation() {
     </span>
   );
 }
-
-export default MalyvsenAnimation;

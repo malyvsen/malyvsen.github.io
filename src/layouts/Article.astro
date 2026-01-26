@@ -1,0 +1,78 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  viewMoreText: string;
+  viewMoreHref: string;
+}
+
+const { title, description, viewMoreText, viewMoreHref } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <div class="container">
+    <a class="view-more-desktop" href={viewMoreHref}>{viewMoreText}</a>
+    <div class="article">
+      <div class="article-content">
+        <h1>{title}</h1>
+        <slot />
+      </div>
+      <slot name="footer" />
+      <div class="view-more-mobile">
+        <a href={viewMoreHref}>{viewMoreText}</a>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .view-more-desktop {
+    position: fixed;
+    right: 0.5em;
+    bottom: 0.5em;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .view-more-mobile {
+    display: none;
+    text-align: right;
+    margin-top: 1em;
+  }
+
+  .view-more-mobile a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .article {
+    max-width: 40em;
+    margin-top: 0;
+    margin-bottom: 1em;
+    margin-left: 2em;
+    margin-right: 2em;
+    text-align: justify;
+  }
+
+  .article-content {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  @media (max-width: 60em) {
+    .view-more-desktop {
+      display: none;
+    }
+    .view-more-mobile {
+      display: block;
+    }
+  }
+</style>

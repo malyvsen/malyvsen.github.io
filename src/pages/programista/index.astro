@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import MalyvsenPage from "@/layouts/MalyvsenPage.astro";
+
+const articles = await getCollection("programista");
+---
+
+<MalyvsenPage title="Mikołaj Bocheński" description="Programista">
+  <div>
+    <p class="intro">Never-seen-before crossbreed of AI&nbsp;researcher and clean&nbsp;coder.</p>
+    <p class="links">
+      <a class="hover-link" href="https://github.com/malyvsen/">GitHub</a>
+      &middot;
+      <a class="hover-link" href="https://www.linkedin.com/in/malyvsen/">LinkedIn</a>
+    </p>
+  </div>
+  {articles.map((article) => (
+    <a class="hover-link article-link" href={`/programista/${article.id}`}>
+      {article.data.title}
+    </a>
+  ))}
+</MalyvsenPage>
+
+<style>
+  .intro {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2em;
+  }
+
+  .links {
+    margin-top: 0;
+    font-size: 1.4em;
+  }
+
+  .article-link {
+    font-size: 2em;
+  }
+</style>

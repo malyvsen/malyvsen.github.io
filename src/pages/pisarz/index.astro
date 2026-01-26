@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import MalyvsenPage from "@/layouts/MalyvsenPage.astro";
+
+const articles = await getCollection("pisarz");
+---
+
+<MalyvsenPage title="Mikołaj Bocheński" description="Pisarz">
+  <p class="intro">Piszę czasami.</p>
+  {articles.map((article) => (
+    <a class="hover-link article-link" href={`/pisarz/${article.id}`}>
+      {article.data.title}
+    </a>
+  ))}
+</MalyvsenPage>
+
+<style>
+  .intro {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2em;
+  }
+
+  .article-link {
+    font-size: 2em;
+  }
+</style>

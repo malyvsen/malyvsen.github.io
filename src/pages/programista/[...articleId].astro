@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from "astro:content";
+import Article from "@/layouts/Article.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("programista");
+  return articles.map((article) => ({
+    params: { articleId: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<Article
+  title={article.data.title}
+  description={article.data.description}
+  viewMoreText="View more articles"
+  viewMoreHref="/programista"
+>
+  <Content />
+</Article>

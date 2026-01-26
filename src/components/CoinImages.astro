@@ -1,0 +1,26 @@
+---
+import coinObverse from '@/content/pisarz/dwa-i-pol-procent/coin-obverse.jpg';
+import coinReverse from '@/content/pisarz/dwa-i-pol-procent/coin-reverse.jpg';
+---
+
+<div class="images">
+  <img src={coinObverse.src} alt="Awers dziesięciozłotówki z podobizną Józefa Piłsudskiego" />
+  <img src={coinReverse.src} alt="Rewers dziesięciozłotówki z orzełkiem" />
+</div>
+
+<style>
+  .images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .images img {
+    flex: 1 1 200px;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+</style>
