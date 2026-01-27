@@ -17,6 +17,7 @@ const { Content } = await render(article);
 <Article
   title={article.data.title}
   description={article.data.description}
+  coverImage={article.data.coverImage?.src}
   viewMoreText="View more articles"
   viewMoreHref="/programista"
 >

@@ -4,14 +4,16 @@ import Base from "./Base.astro";
 interface Props {
   title: string;
   description: string;
+  coverImage?: string;
   viewMoreText: string;
   viewMoreHref: string;
 }
 
-const { title, description, viewMoreText, viewMoreHref } = Astro.props;
+const { title, description, coverImage, viewMoreText, viewMoreHref } =
+  Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} coverImage={coverImage}>
   <div class="container">
     <a class="view-more-desktop" href={viewMoreHref}>{viewMoreText}</a>
     <div class="article">
