@@ -14,15 +14,13 @@ const isHomepage = Astro.url.pathname === "/";
 <Base title={title} description={description}>
   <div class="container">
     <h1 class="title">
-      {
-        isHomepage ? (
+      {isHomepage ? (
+        <MalyvsenAnimation client:load />
+      ) : (
+        <a href="/">
           <MalyvsenAnimation client:load />
-        ) : (
-          <a href="/">
-            <MalyvsenAnimation client:load />
-          </a>
-        )
-      }
+        </a>
+      )}
     </h1>
     <div class="content">
       <slot />

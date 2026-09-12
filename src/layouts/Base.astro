@@ -28,14 +28,12 @@ const { title, description, coverImage } = Astro.props;
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {
-      coverImage && (
-        <meta
-          property="og:image"
-          content={new URL(coverImage, Astro.site).href}
-        />
-      )
-    }
+    {coverImage && (
+      <meta
+        property="og:image"
+        content={new URL(coverImage, Astro.site).href}
+      />
+    )}
   </head>
   <body>
     <slot />
